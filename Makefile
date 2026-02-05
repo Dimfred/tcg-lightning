@@ -1,14 +1,31 @@
 .ONESHELL:
 SHELL := /bin/bash
-.PHONY: build releases
+.PHONY: build releases install dev
 
 all: help
+
+################################################################################
+# APP
+init: ## install dependencies
+	bun install
+
+dev: ## run the development server
+	bun run dev --host 0.0.0.0
+
+build: ## build the Svelte project for production
+	bun run build
+
+create-images: ## create images
+	scripts/create_conversion_image.sh
+
+format: ## format code
+	prettier --write "src/**/*.{svelte,ts,js}"
 
 ################################################################################
 # RELEASE
 release: ## publish latest release from releases/ folder
 	@echo "Finding latest release..."
-	@VERSION=$$(ls -1 releases/ | grep -oP 'tcg-lightning_\K[0-9.]+' | sort -V | tail -n1); \
+	@VERSION=$$(ls -1 releases/ | grep -oP 'tcg-lightning_\K[0-9]+\.[0-9]+\.[0-9]+' | sort -V | tail -n1); \
 	if [ -z "$$VERSION" ]; then \
 		echo "Error: No releases found in releases/ folder"; \
 		exit 1; \
@@ -28,7 +45,7 @@ release: ## publish latest release from releases/ folder
 			exit 1; \
 		fi; \
 		echo "Publishing release v$$VERSION..."; \
-		gh release create "v$$VERSION" releases/tcg-lightning_$${VERSION}_* \
+		gh release create "v$$VERSION" releases/*tcg-lightning_$${VERSION}* \
 			--title "v$$VERSION" \
 			--notes-file "$$NOTES_FILE" \
 			--latest; \
@@ -36,6 +53,40 @@ release: ## publish latest release from releases/ folder
 		echo "Release cancelled"; \
 		exit 1; \
 	fi
+
+################################################################################
+# AUR
+release-aur: ## update AUR package with correct version and hash
+	@echo "Finding latest release..."
+	@VERSION=$$(ls -1 releases/ | grep -oP 'tcg-lightning_\K[0-9]+\.[0-9]+\.[0-9]+' | sort -V | tail -n1); \
+	if [ -z "$$VERSION" ]; then \
+		echo "Error: No releases found in releases/ folder"; \
+		exit 1; \
+	fi; \
+	DEB_FILE="releases/linux-tcg-lightning_$${VERSION}_amd64.deb"; \
+	if [ ! -f "$$DEB_FILE" ]; then \
+		echo "Error: .deb file not found: $$DEB_FILE"; \
+		exit 1; \
+	fi; \
+	echo "Updating AUR package for version $$VERSION"; \
+	SHA256=$$(sha256sum "$$DEB_FILE" | awk '{print $$1}'); \
+	echo "SHA256: $$SHA256"; \
+	sed -i "s/^pkgver=.*/pkgver=$$VERSION/" aur-package/PKGBUILD; \
+	sed -i "s/^sha256sums=.*/sha256sums=('$$SHA256')/" aur-package/PKGBUILD; \
+	echo "Generating .SRCINFO..."; \
+	cd aur-package && makepkg --printsrcinfo > .SRCINFO && cd ..; \
+	echo "Copying to AUR repo..."; \
+	cp aur-package/PKGBUILD ../tcg-lightning-bin/PKGBUILD; \
+	cp aur-package/.SRCINFO ../tcg-lightning-bin/.SRCINFO; \
+	echo "Cleaning up build artifacts..."; \
+	cd aur-package && rm -rf src/ pkg/ *.pkg.tar.zst *.deb && cd ..; \
+	echo "AUR package updated successfully!"; \
+	echo ""; \
+	echo "Committing to AUR repo..."; \
+	cd ../tcg-lightning-bin && \
+	git add PKGBUILD .SRCINFO && \
+	git commit -m "Bump to $$VERSION" && \
+	git push
 
 ################################################################################
 # HELP
