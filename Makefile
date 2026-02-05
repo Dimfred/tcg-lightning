@@ -1,8 +1,19 @@
 .ONESHELL:
 SHELL := /bin/bash
-.PHONY: build releases
+.PHONY: build releases install dev
 
 all: help
+
+################################################################################
+# APP
+init: ## install dependencies
+	bun install
+
+dev: ## run the development server
+	bun run dev
+
+build: ## build the Svelte project for production
+	bun run build
 
 ################################################################################
 # RELEASE
