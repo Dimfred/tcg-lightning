@@ -1,7 +1,6 @@
 <script lang="ts">
   import "../app.css";
   import Navigation from "$lib/components/Navigation.svelte";
-  import { base } from "$app/paths";
   import { page } from "$app/stores";
   import { fade } from "svelte/transition";
 

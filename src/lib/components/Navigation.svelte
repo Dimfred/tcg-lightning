@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
   import { page } from "$app/stores";
-  import { base } from "$app/paths";
+  import { asset, resolve } from "$app/paths";
   import { goto } from "$app/navigation";
   import { throttle } from "$lib/utils";
   import { Menu, X } from "lucide-svelte";
@@ -15,8 +15,8 @@
 
   // Check if we're on the home page
   let isHomePage = $derived(
-    $page.url.pathname === `${base}/` ||
-      $page.url.pathname === `${base}` ||
+    $page.url.pathname === resolve("/") ||
+      $page.url.pathname === resolve("") ||
       $page.url.pathname === "/",
   );
 
@@ -29,7 +29,7 @@
       }
     } else {
       // Navigate to home page first, then scroll to section
-      await goto(`${base}/`);
+      await goto(resolve("/"));
       await tick();
       setTimeout(() => {
         const element = document.getElementById(id);
@@ -80,8 +80,8 @@
     : 'bg-transparent border-transparent'}"
 >
   <nav class="container mx-auto px-4 h-full flex items-center justify-between">
-    <a href="{base}/" class="flex items-center">
-      <img src="{base}/logo_full.png" alt="TCG Lightning" class="h-8 w-auto" />
+    <a href={resolve("/")} class="flex items-center">
+      <img src={asset("/logo_full.png")} alt="TCG Lightning" class="h-8 w-auto" />
     </a>
 
     <!-- Desktop Navigation -->
@@ -114,7 +114,7 @@
         Download
       </button>
       <a
-        href="{base}/wiki"
+        href={resolve("/wiki")}
         class="text-sm font-medium transition-colors hover:text-primary {$page.url.pathname.includes(
           '/wiki',
         )
@@ -174,7 +174,7 @@
           Download
         </button>
         <a
-          href="{base}/wiki"
+          href={resolve("/wiki")}
           class="text-lg font-medium py-3 px-4 hover:bg-secondary rounded-md transition-colors"
           onclick={() => (mobileMenuOpen = false)}
         >

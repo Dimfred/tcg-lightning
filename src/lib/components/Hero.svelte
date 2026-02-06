@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { base } from "$app/paths";
+  import { asset } from "$app/paths";
   import { Button } from "$lib/components/ui/button";
   import {
     Download,
@@ -16,28 +16,32 @@
   // Screenshots carousel
   const screenshots: Screenshot[] = [
     {
-      src: `${base}/screenshots/deck-builder.jpg`,
+      src: asset("/screenshots/deck-builder.jpg"),
       caption: "Build and manage your decks with a clean, intuitive interface.",
     },
     {
-      src: `${base}/screenshots/card-search.jpg`,
+      src: asset("/screenshots/card-search.jpg"),
       caption:
         "Search using Scryfall syntax or natural language - find cards your way.",
     },
     {
-      src: `${base}/screenshots/ai-chat.jpg`,
+      src: asset("/screenshots/proxies.jpg"),
+      caption:
+        "Create custom proxies with your own artwork directly in the app.",
+    },
+    {
+      src: asset("/screenshots/ai-chat.jpg"),
       caption:
         "Use AI to tag cards, suggest cuts, find synergies, or get deck recommendations.",
     },
     {
-      src: `${base}/screenshots/edhrec.jpg`,
+      src: asset("/screenshots/edhrec.jpg"),
       caption:
         "Use EDHREC integration to discover powerful synergies for your deck.",
     },
     {
-      src: `${base}/screenshots/archidekt.jpg?v=2`,
-      caption:
-        "Discover combos in your deck with Archidekt's ComboSpellbook.",
+      src: asset("/screenshots/archidekt.jpg?v=2"),
+      caption: "Discover combos in your deck with Archidekt's ComboSpellbook.",
     },
   ];
 
@@ -86,7 +90,7 @@
       <!-- Logo -->
       <div class="flex justify-center mb-6">
         <img
-          src="{base}/logo_full.png"
+          src={asset("/logo_full.png")}
           alt="TCG Lightning"
           class="h-16 md:h-24 w-auto drop-shadow-lg"
         />
@@ -94,9 +98,8 @@
 
       <!-- Tagline -->
       <p class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-        A fast, modern deck builder for <span
-          class="text-foreground font-medium">Magic: The Gathering</span
-        >
+        A fast, modern deck builder for<br />
+        <span class="text-foreground font-medium">Magic: The Gathering</span>
       </p>
 
       <!-- CTA Button (desktop only) -->
