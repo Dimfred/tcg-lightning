@@ -114,16 +114,9 @@
             <Download class="size-4" />
             Download .deb
           </Button>
-          <Button
-            class="w-full"
-            variant="outline"
-            href="https://aur.archlinux.org/packages/tcg-lightning-bin"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ExternalLink class="size-4" />
-            AUR Package
-          </Button>
+          <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
+            paru -Sy tcg-lightning-bin
+          </div>
         </Card.Content>
       </Card.Root>
 

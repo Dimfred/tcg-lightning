@@ -13,7 +13,7 @@ dev: ## run the development server
 	bun run dev --host 0.0.0.0
 
 build: ## build the Svelte project for production
-	bun run build
+	NODE_ENV=production bun run build
 
 create-images: ## create images
 	scripts/create_conversion_image.sh
