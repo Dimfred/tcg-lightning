@@ -53,6 +53,7 @@ release: ## publish latest release from releases/ folder
 		echo "Release cancelled"; \
 		exit 1; \
 	fi
+	$(MAKE) release-aur
 
 ################################################################################
 # AUR
