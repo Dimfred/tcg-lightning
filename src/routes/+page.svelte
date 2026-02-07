@@ -12,8 +12,4 @@
 
 <Hero />
 <AboutSection />
-<DownloadSection
-  version={data.version}
-  releaseNotes={data.releaseNotes}
-  allReleaseNotes={data.allReleaseNotes}
-/>
+<DownloadSection version={data.version} releases={data.releases} />

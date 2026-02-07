@@ -15,6 +15,9 @@ dev: ## run the development server
 build: ## build the Svelte project for production
 	NODE_ENV=production bun run build
 
+preview: build
+	bun run preview
+
 create-images: ## create images
 	scripts/create_conversion_image.sh
 
