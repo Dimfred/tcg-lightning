@@ -88,7 +88,7 @@
     <div class="hidden md:flex items-center gap-6">
       <button
         onclick={() => navigateToSection("hero")}
-        class="text-sm font-medium transition-colors hover:text-primary {isHomePage &&
+        class="text-sm font-medium transition-colors hover:text-primary cursor-pointer {isHomePage &&
         activeSection === 'hero'
           ? 'text-primary'
           : 'text-muted-foreground'}"
@@ -97,7 +97,7 @@
       </button>
       <button
         onclick={() => navigateToSection("about")}
-        class="text-sm font-medium transition-colors hover:text-primary {isHomePage &&
+        class="text-sm font-medium transition-colors hover:text-primary cursor-pointer {isHomePage &&
         activeSection === 'about'
           ? 'text-primary'
           : 'text-muted-foreground'}"
@@ -106,7 +106,7 @@
       </button>
       <button
         onclick={() => navigateToSection("download")}
-        class="text-sm font-medium transition-colors hover:text-primary {isHomePage &&
+        class="text-sm font-medium transition-colors hover:text-primary cursor-pointer {isHomePage &&
         activeSection === 'download'
           ? 'text-primary'
           : 'text-muted-foreground'}"
@@ -157,19 +157,19 @@
       <nav class="p-4 flex flex-col gap-2">
         <button
           onclick={() => navigateToSection("hero")}
-          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors"
+          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
         >
           Home
         </button>
         <button
           onclick={() => navigateToSection("about")}
-          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors"
+          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
         >
           About
         </button>
         <button
           onclick={() => navigateToSection("download")}
-          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors"
+          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
         >
           Download
         </button>
