@@ -137,6 +137,16 @@
         <li><strong>OpenAI GPT-5.1-chat</strong> - Better quality for complex tasks, cost-effective</li>
         <li><strong>GLM family</strong> - Various options for different needs</li>
       </ul>
+
+      <p>
+        Alternatively, <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google Gemini</a> offers a free API with generous rate limits.
+      </p>
+      <p><strong>Setup:</strong></p>
+      <ol>
+        <li>Go to <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a></li>
+        <li>Create an account and generate an API key</li>
+        <li>In TCG Lightning: Settings (top right) → LLM Providers → Add to Google Gemini</li>
+      </ol>
     </div>
   </main>
 </div>
