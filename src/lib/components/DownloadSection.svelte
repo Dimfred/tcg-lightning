@@ -14,9 +14,10 @@
   type Props = {
     version: string;
     releaseNotes?: string;
+    allReleaseNotes?: Array<{ version: string; content: string }>;
   };
 
-  let { version, releaseNotes }: Props = $props();
+  let { version, releaseNotes, allReleaseNotes = [] }: Props = $props();
 
   // Link to the latest release page - GitHub will redirect to the actual download
   const latestReleasePage =
@@ -137,19 +138,43 @@
     <!-- Release Notes (desktop only) -->
     {#if releaseNotes}
       <div class="hidden md:block mt-12 max-w-3xl mx-auto">
-        <h3 class="text-2xl font-bold mb-4">Release Notes - v{version}</h3>
+        <h3 class="text-2xl font-bold mb-4">Latest Release - v{version}</h3>
         <Card.Root>
           <Card.Content class="markdown-content pt-6">
             {@html releaseNotes}
           </Card.Content>
         </Card.Root>
+      </div>
+    {/if}
+
+    <!-- All Release Notes (desktop only) -->
+    {#if allReleaseNotes.length > 0}
+      <div class="hidden md:block mt-12 max-w-3xl mx-auto">
+        <h3 class="text-2xl font-bold mb-6">Release History</h3>
+        <div class="space-y-6">
+          {#each allReleaseNotes as release}
+            <Card.Root>
+              <Card.Header>
+                <Card.Title class="flex items-center gap-2">
+                  Version {release.version}
+                  {#if release.version === version}
+                    <Badge variant="default" class="ml-2">Latest</Badge>
+                  {/if}
+                </Card.Title>
+              </Card.Header>
+              <Card.Content class="markdown-content">
+                {@html release.content}
+              </Card.Content>
+            </Card.Root>
+          {/each}
+        </div>
         <a
           href="https://github.com/dimfred/tcg-lightning/releases"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 mt-4 text-primary hover:underline"
+          class="inline-flex items-center gap-2 mt-6 text-primary hover:underline"
         >
-          View all releases
+          View releases on GitHub
           <ExternalLink class="size-4" />
         </a>
       </div>
