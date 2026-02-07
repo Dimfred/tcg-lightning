@@ -10,18 +10,37 @@
     ExternalLink,
     Laptop,
   } from "lucide-svelte";
+  import type { GitHubRelease } from "$lib/github-api";
+  import { marked } from "marked";
 
   type Props = {
     version: string;
-    releaseNotes?: string;
-    allReleaseNotes?: Array<{ version: string; content: string }>;
+    releases: GitHubRelease[];
   };
 
-  let { version, releaseNotes, allReleaseNotes = [] }: Props = $props();
+  let { version, releases }: Props = $props();
+
+  // Parse version from tag (remove 'v' prefix)
+  function parseVersion(tagName: string): string {
+    return tagName.startsWith("v") ? tagName.slice(1) : tagName;
+  }
+
+  // Convert markdown to HTML and remove the first h1 (version number)
+  function renderMarkdown(markdown: string | undefined | null): string {
+    if (!markdown) return "";
+    let html = marked(markdown) as string;
+    // Remove first h1 tag (version number like "# 0.1.17")
+    html = html.replace(/<h1[^>]*>.*?<\/h1>/, "");
+    return html;
+  }
 
   // Link to the latest release page - GitHub will redirect to the actual download
   const latestReleasePage =
     "https://github.com/dimfred/tcg-lightning/releases/latest";
+
+  // Get latest release notes (using derived state)
+  let latestRelease = $derived(releases?.[0]);
+  let releaseNotesHtml = $derived(renderMarkdown(latestRelease?.body));
 </script>
 
 <section id="download" class="py-16 md:py-24 bg-secondary/30">
@@ -136,34 +155,31 @@
     </div>
 
     <!-- Release Notes (desktop only) -->
-    {#if releaseNotes}
+    {#if latestRelease}
       <div class="hidden md:block mt-12 max-w-3xl mx-auto">
         <h3 class="text-2xl font-bold mb-4">Latest Release - v{version}</h3>
         <Card.Root>
-          <Card.Content class="markdown-content pt-6">
-            {@html releaseNotes}
+          <Card.Content class="markdown-content">
+            {@html releaseNotesHtml}
           </Card.Content>
         </Card.Root>
       </div>
     {/if}
 
-    <!-- All Release Notes (desktop only) -->
-    {#if allReleaseNotes.length > 0}
+    <!-- All Release Notes (desktop only) - Skip first release as it's shown above -->
+    {#if releases.length > 1}
       <div class="hidden md:block mt-12 max-w-3xl mx-auto">
         <h3 class="text-2xl font-bold mb-6">Release History</h3>
         <div class="space-y-6">
-          {#each allReleaseNotes as release}
+          {#each releases.slice(1) as release}
             <Card.Root>
               <Card.Header>
                 <Card.Title class="flex items-center gap-2">
-                  Version {release.version}
-                  {#if release.version === version}
-                    <Badge variant="default" class="ml-2">Latest</Badge>
-                  {/if}
+                  Version {parseVersion(release.tag_name)}
                 </Card.Title>
               </Card.Header>
               <Card.Content class="markdown-content">
-                {@html release.content}
+                {@html renderMarkdown(release.body)}
               </Card.Content>
             </Card.Root>
           {/each}
