@@ -106,20 +106,24 @@
 
 .markdown-content h1 {
   @apply text-2xl font-bold mt-4 mb-2;
+  scroll-margin-top: 4rem;
 }
 
 .markdown-content h2 {
   @apply text-xl font-bold mt-3 mb-2;
+  scroll-margin-top: 4rem;
 }
 
 .markdown-content h3 {
   @apply text-lg font-semibold mt-2 mb-1;
+  scroll-margin-top: 4rem;
 }
 
 .markdown-content h4,
 .markdown-content h5,
 .markdown-content h6 {
   @apply font-semibold mt-2 mb-1;
+  scroll-margin-top: 4rem;
 }
 
 .markdown-content p {
