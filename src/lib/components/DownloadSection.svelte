@@ -129,9 +129,6 @@
           <Badge variant="secondary">Coming Soon</Badge>
         </Card.Header>
         <Card.Content class="space-y-3">
-          <p class="text-sm text-muted-foreground italic text-center">
-            Fuck the system
-          </p>
           <Button class="w-full" disabled>Not Available</Button>
         </Card.Content>
       </Card.Root>
