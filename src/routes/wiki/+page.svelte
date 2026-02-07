@@ -5,32 +5,41 @@
     Menu,
     X,
     BookOpen,
-    Settings,
     Search,
     HelpCircle,
-    ChevronRight,
+    Bot,
+    Tag,
+    FileInput,
+    FileOutput,
+    Printer,
+    Keyboard,
   } from "lucide-svelte";
 
   let sidebarOpen = $state(false);
 
   const navItems = [
     {
+      title: "Help",
+      items: [
+        { label: "Bug Reporting", icon: HelpCircle, href: "#troubleshooting" },
+      ],
+    },
+    {
       title: "Getting Started",
       items: [
-        { label: "Installation", icon: BookOpen },
-        { label: "First Deck", icon: ChevronRight },
+        { label: "Getting Started", icon: BookOpen, href: "#getting-started" },
+        { label: "Card Search", icon: Search, href: "#card-search" },
       ],
     },
     {
       title: "Features",
       items: [
-        { label: "LLM Setup", icon: Settings },
-        { label: "Search Syntax", icon: Search },
+        { label: "AI Assistant", icon: Bot, href: "#ai-assistant" },
+        { label: "Card Tagging", icon: Tag, href: "#card-tagging" },
+        { label: "Import/Export", icon: FileInput, href: "#import-export" },
+        { label: "Proxy Printing", icon: Printer, href: "#proxy-printing" },
+        { label: "Keyboard Shortcuts", icon: Keyboard, href: "#keyboard-shortcuts" },
       ],
-    },
-    {
-      title: "Help",
-      items: [{ label: "FAQ", icon: HelpCircle }],
     },
   ];
 </script>
@@ -41,7 +50,7 @@
 
 <div class="flex min-h-[calc(100vh-3.5rem)]">
   <!-- Mobile sidebar toggle -->
-  <!-- <Button
+  <Button
     variant="ghost"
     size="icon"
     class="fixed bottom-4 right-4 z-50 lg:hidden shadow-lg bg-card border"
@@ -53,11 +62,11 @@
     {:else}
       <Menu class="size-5" />
     {/if}
-  </Button> -->
+  </Button>
 
   <!-- Sidebar -->
-  <!-- <aside
-    class="fixed lg:sticky top-14 left-0 z-40 h-[calc(100vh-3.5rem)] w-64 border-r border-border bg-secondary/20 overflow-y-auto transition-transform duration-200 {sidebarOpen
+  <aside
+    class="fixed lg:sticky top-14 left-0 z-40 h-[calc(100vh-3.5rem)] w-64 border-r border-border bg-background overflow-y-auto transition-transform duration-200 {sidebarOpen
       ? 'translate-x-0'
       : '-translate-x-full lg:translate-x-0'}"
   >
@@ -71,82 +80,134 @@
           </h4>
           <div class="space-y-1">
             {#each section.items as item}
-              <button
+              <a
+                href={item.href}
                 class="w-full flex items-center gap-2 py-2 px-3 rounded-md text-sm hover:bg-secondary/50 transition-colors text-left"
+                onclick={() => (sidebarOpen = false)}
               >
                 <item.icon class="size-4 text-muted-foreground" />
                 {item.label}
-              </button>
+              </a>
             {/each}
           </div>
         </div>
       {/each}
     </nav>
-  </aside> -->
+  </aside>
 
   <!-- Backdrop for mobile -->
-  <!-- {#if sidebarOpen}
+  {#if sidebarOpen}
     <button
       class="fixed inset-0 z-30 bg-black/50 lg:hidden"
       onclick={() => (sidebarOpen = false)}
       aria-label="Close sidebar"
     ></button>
-  {/if} -->
+  {/if}
 
   <!-- Main content -->
-  <main class="flex-1 px-6 py-8 md:px-12 md:py-16 max-w-4xl">
+  <main class="flex-1 px-6 py-8 md:px-12 md:py-16 max-w-4xl mx-auto">
     <div class="markdown-content">
       <h1>TCG Lightning Wiki</h1>
 
-      <h2>FAQ</h2>
-
-      <h3>1. The app is new and buggy, please report bugs!</h3>
+      <h2 id="troubleshooting">Bug Reporting</h2>
       <p>
-        TCG Lightning is under active development. If you encounter any issues,
-        please report them on our <a href="https://github.com/dimfred/tcg-lightning/issues" target="_blank" rel="noopener noreferrer">GitHub Issues page</a>.
+        TCG Lightning is under active development. If you encounter any issues, please report them directly in the app by clicking the bug icon at the top.
       </p>
 
-      <h3>2. Search Syntax</h3>
+      <h2 id="getting-started">Getting Started</h2>
+      <p>
+        When you first launch TCG Lightning, the app will automatically download the Scryfall card database.
+        This process takes a few minutes. The app will prompt you from time to time when database updates are available.
+      </p>
+
+      <h2 id="card-search">Card Search</h2>
       <p>
         TCG Lightning uses <a href="https://scryfall.com/docs/syntax" target="_blank" rel="noopener noreferrer">Scryfall search syntax</a>.
-        Our implementation might be incomplete - please report any missing features.
-      </p>
-      <p>
-        <strong>Tip:</strong> Press <code>Ctrl+Enter</code> in the search box to convert natural language to Scryfall syntax using AI.
+        Press <code>Ctrl+Enter</code> in the search box to convert natural language queries into Scryfall syntax using AI.
       </p>
 
-      <h3>3. Keybindings</h3>
-      <p>
-        All keyboard shortcuts can be found and customized in the Settings menu.
-      </p>
+      <h2 id="ai-assistant">AI Assistant</h2>
 
-      <h3>4. LLM Provider Integration</h3>
+      <h3 id="llm-setup">Setting Up LLM Providers</h3>
+
+      <h4>OpenRouter (Recommended)</h4>
       <p>
-        We recommend using <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">OpenRouter</a> - they offer 50 free requests per day.
+        <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">OpenRouter</a> offers 50 free requests per day.
       </p>
-      <p><strong>Setup:</strong></p>
       <ol>
-        <li>Sign up at OpenRouter</li>
+        <li>Sign up at <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">openrouter.ai</a></li>
         <li>Click your profile (top right) → API Keys tab</li>
         <li>Generate an API key</li>
-        <li>In TCG Lightning: Settings (top right) → LLM Providers → Add to OpenRouter</li>
+        <li>In TCG Lightning: Settings → LLM Providers → Add to OpenRouter</li>
+        <li>Paste your API key and use model: <code>z.ai/glm-4.5-air</code></li>
       </ol>
-      <p>Recommended models:</p>
-      <ul>
-        <li><strong>GLM 4.5</strong> - Good free model that helps with search syntax</li>
-        <li><strong>OpenAI GPT-5.1-chat</strong> - Better quality for complex tasks, cost-effective</li>
-        <li><strong>GLM family</strong> - Various options for different needs</li>
-      </ul>
 
+      <h4>Google Gemini</h4>
       <p>
-        Alternatively, <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google Gemini</a> offers a free API with generous rate limits.
+        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google Gemini</a> offers a generous free API tier.
       </p>
-      <p><strong>Setup:</strong></p>
       <ol>
         <li>Go to <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a></li>
         <li>Create an account and generate an API key</li>
-        <li>In TCG Lightning: Settings (top right) → LLM Providers → Add to Google Gemini</li>
+        <li>In TCG Lightning: Settings → LLM Providers → Add to Google Gemini</li>
+        <li>Paste your API key and save</li>
       </ol>
+
+      <h3 id="api-key-storage">Secure API Key Storage</h3>
+      <p>
+        API keys are stored securely using Tauri plugin vault (Stronghold from IOTA). They are never stored in plain text.
+      </p>
+
+      <h3 id="ai-features">AI Features</h3>
+      <p>
+        Open the AI assistant with <code>Ctrl+K</code>. You can use AI to tag your creatures and get deck recommendations.
+      </p>
+
+      <h2 id="card-tagging">Card Tagging</h2>
+      <p>
+        Local tags are normal tags. Global tags start with <code>!</code>.
+      </p>
+
+      <h2 id="import-export">Import/Export</h2>
+      <p>
+        Import decks with <code>Ctrl+I</code>. Export decks with <code>Ctrl+E</code>.
+        Supports plain text and Cockatrice format.
+      </p>
+
+      <h2 id="proxy-printing">Proxy Printing</h2>
+
+      <h3 id="generating-proxies">Generating Proxy PDFs</h3>
+      <p>
+        TCG Lightning can generate high-quality proxy PDFs for playtesting purposes. The feature creates
+        print-ready PDFs with proper card sizing and layout.
+      </p>
+      <ol>
+        <li>Open a deck</li>
+        <li>Click "Generate Proxies"</li>
+        <li>Configure print settings</li>
+        <li>Generate and save the PDF</li>
+        <li>Print on standard cardstock or paper</li>
+      </ol>
+
+      <h3 id="print-settings">Print Settings</h3>
+      <ul>
+        <li><strong>Paper Size</strong> - Choose A4 (international) or Letter (US) size</li>
+        <li><strong>Crop Marks</strong> - Add cutting guides for precise trimming</li>
+        <li><strong>Black Corners</strong> - Fill corners to match real Magic cards</li>
+        <li><strong>Card Backs</strong> - Include generic Magic backs for double-sided printing</li>
+        <li><strong>Exclude Basic Lands</strong> - Skip basic lands (use real ones instead)</li>
+      </ul>
+
+      <h3 id="proxy-quality">Quality and Usage</h3>
+      <p>
+        Proxies generated by TCG Lightning use high-resolution card images from Scryfall. They are intended
+        for playtesting only and should not be used in sanctioned tournaments.
+      </p>
+
+      <h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+      <p>
+        All keyboard shortcuts can be customized in Settings → Keybindings.
+      </p>
     </div>
   </main>
 </div>
