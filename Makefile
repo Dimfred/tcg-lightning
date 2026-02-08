@@ -84,8 +84,8 @@ release-aur: ## update AUR package with correct version and hash
 	cp aur-package/.SRCINFO ../tcg-lightning-bin/.SRCINFO; \
 	echo "Cleaning up build artifacts..."; \
 	cd aur-package && rm -rf src/ pkg/ *.pkg.tar.zst *.deb && cd ..; \
-	git add aur-package notes \
-	git commit -m "Bump to $$VERSION" \
+	git add aur-package notes; \
+	git commit -m "Bump to $$VERSION"; \
 	echo "AUR package updated successfully!"; \
 	echo ""; \
 	echo "Committing to AUR repo..."; \
