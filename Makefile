@@ -1,6 +1,11 @@
 .ONESHELL:
 SHELL := /bin/bash
-.PHONY: build releases install dev
+.PHONY: all help dev build preview docker docker-build docker-push releases
+
+PROJECT_NAME := tcg-lightning
+CONTAINER_NAME := website
+IMAGE_REGISTRY := registry.fugashu.dev
+IMAGE_TAG := $(IMAGE_REGISTRY)/$(PROJECT_NAME)/$(CONTAINER_NAME)
 
 all: help
 
@@ -23,6 +28,22 @@ create-images: ## create images
 
 format: ## format code
 	prettier --write "src/**/*.{svelte,ts,js}"
+
+################################################################################
+# DOCKER
+docker: docker-build docker-push ## build and push docker image
+
+docker-build: ## build docker image
+	docker build -t $(IMAGE_TAG):latest .
+
+docker-push: ## push docker image to registry
+	docker push $(IMAGE_TAG):latest
+
+docker-up: ## start with docker compose
+	docker compose up -d
+
+docker-down: ## stop docker compose
+	docker compose down
 
 ################################################################################
 # RELEASE

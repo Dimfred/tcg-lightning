@@ -14,6 +14,7 @@ dist-ssr
 # SvelteKit
 .svelte-kit/
 build/
+docs/
 
 # Editor directories and files
 .vscode/*
@@ -28,6 +29,3 @@ build/
 
 # Releases (binaries are tracked via release system)
 releases/
-
-# Keep docs/ for GitHub Pages
-!docs/

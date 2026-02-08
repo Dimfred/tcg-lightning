@@ -1,0 +1,41 @@
+# Build outputs
+node_modules
+.svelte-kit
+docs
+build
+.output
+
+# Version control
+.git
+.gitignore
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Logs
+*.log
+npm-debug.log*
+
+# Documentation
+README.md
+notes/
+releases/
+
+# Makefile and other dev files
+Makefile
