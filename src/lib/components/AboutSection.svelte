@@ -6,9 +6,9 @@
 <section id="about" class="py-16 md:py-24">
   <div class="container mx-auto px-4">
     <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Build Better Decks</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Build Better Magic: The Gathering Decks</h2>
       <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Everything you need for competitive Magic deck building
+        Commander, Standard, Legacy, Modern or Pauper — build for the format of your choice
       </p>
     </div>
 

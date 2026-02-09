@@ -45,7 +45,21 @@
 </script>
 
 <svelte:head>
-  <title>Wiki - TCG Lightning</title>
+  <title>TCG Lightning Wiki - MTG Deck Builder Guide & Documentation</title>
+  <meta name="description" content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts." />
+  <link rel="canonical" href="https://tcg-lightning.com/wiki" />
+
+  <!-- Open Graph overrides for wiki -->
+  <meta property="og:title" content="TCG Lightning Wiki - MTG Deck Builder Guide" />
+  <meta property="og:description" content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts." />
+  <meta property="og:url" content="https://tcg-lightning.com/wiki" />
+
+  <!-- Twitter overrides for wiki -->
+  <meta name="twitter:title" content="TCG Lightning Wiki - MTG Deck Builder Guide" />
+  <meta name="twitter:description" content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts." />
+
+  {@html '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"TCG Lightning Wiki","description":"Complete guide for TCG Lightning MTG deck builder - card search, AI assistant, proxy printing, and more.","url":"https://tcg-lightning.com/wiki","isPartOf":{"@type":"WebSite","name":"TCG Lightning","url":"https://tcg-lightning.com/"}}</script>'}
+  {@html '<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tcg-lightning.com/"},{"@type":"ListItem","position":2,"name":"Wiki","item":"https://tcg-lightning.com/wiki"}]}</script>'}
 </svelte:head>
 
 <div class="flex min-h-[calc(100vh-3.5rem)]">

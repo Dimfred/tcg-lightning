@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to convert PNGs to JPEGs and create a combined image showing
+# Script to convert PNGs to WebP and create a combined image showing
 # natural language to Scryfall syntax conversion
 
 set -e
@@ -21,13 +21,13 @@ echo "Working in directory: $WORK_DIR"
 # List of screenshot PNGs to convert and delete (excluding logos)
 SCREENSHOTS_TO_CONVERT=()
 
-# Convert all PNGs to JPEGs in the screenshots directory
-echo "Converting PNGs to JPEGs..."
+# Convert all PNGs to WebP in the screenshots directory
+echo "Converting PNGs to WebP..."
 for png in "$WORK_DIR"/*.png; do
     if [ -f "$png" ]; then
-        jpeg="${png%.png}.jpg"
-        magick "$png" "$jpeg"
-        echo "Converted: $(basename "$png") -> $(basename "$jpeg")"
+        webp="${png%.png}.webp"
+        magick "$png" -quality 80 "$webp"
+        echo "Converted: $(basename "$png") -> $(basename "$webp")"
         # Add to deletion list (only screenshots in this directory, not logos elsewhere)
         SCREENSHOTS_TO_CONVERT+=("$png")
     fi
@@ -42,18 +42,26 @@ if [ ${#SCREENSHOTS_TO_CONVERT[@]} -gt 0 ]; then
     done
 fi
 
-# Check if required images exist
-NATURAL_1="$WORK_DIR/natural-to-scryfall-1.jpg"
-NATURAL_2="$WORK_DIR/natural-to-scryfall-2.jpg"
-OUTPUT="$WORK_DIR/combined.jpg"
+# Check if required images exist (try webp first, fall back to jpg for legacy)
+NATURAL_1="$WORK_DIR/natural-to-scryfall-1.webp"
+NATURAL_2="$WORK_DIR/natural-to-scryfall-2.webp"
+OUTPUT="$WORK_DIR/combined.webp"
+
+# Fall back to jpg if webp doesn't exist yet
+if [ ! -f "$NATURAL_1" ] && [ -f "$WORK_DIR/natural-to-scryfall-1.jpg" ]; then
+    NATURAL_1="$WORK_DIR/natural-to-scryfall-1.jpg"
+fi
+if [ ! -f "$NATURAL_2" ] && [ -f "$WORK_DIR/natural-to-scryfall-2.jpg" ]; then
+    NATURAL_2="$WORK_DIR/natural-to-scryfall-2.jpg"
+fi
 
 if [ ! -f "$NATURAL_1" ]; then
-    echo "Error: natural-to-scryfall-1.jpg not found"
+    echo "Error: natural-to-scryfall-1.webp not found"
     exit 1
 fi
 
 if [ ! -f "$NATURAL_2" ]; then
-    echo "Error: natural-to-scryfall-2.jpg not found"
+    echo "Error: natural-to-scryfall-2.webp not found"
     exit 1
 fi
 
@@ -72,16 +80,17 @@ magick -size ${WIDTH}x${ARROW_HEIGHT} xc:black \
     -draw "line $((WIDTH/2)),20 $((WIDTH/2)),$((ARROW_HEIGHT-30))" \
     -draw "line $((WIDTH/2)),$((ARROW_HEIGHT-30)) $((WIDTH/2-15)),$((ARROW_HEIGHT-45))" \
     -draw "line $((WIDTH/2)),$((ARROW_HEIGHT-30)) $((WIDTH/2+15)),$((ARROW_HEIGHT-45))" \
-    "$WORK_DIR/arrow.jpg"
+    /tmp/arrow.png
 
 # Combine images vertically: natural_1, arrow, natural_2
-magick "$NATURAL_1" "$WORK_DIR/arrow.jpg" "$NATURAL_2" \
+magick "$NATURAL_1" /tmp/arrow.png "$NATURAL_2" \
     -background black \
     -append \
+    -quality 80 \
     "$OUTPUT"
 
 # Clean up temporary arrow image
-rm "$WORK_DIR/arrow.jpg"
+rm /tmp/arrow.png
 
 echo "Combined image created: $OUTPUT"
 echo "Done!"

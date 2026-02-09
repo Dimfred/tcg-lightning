@@ -1,24 +1,15 @@
 <script lang="ts">
   import "../app.css";
+  import "@fontsource/inter/400.css";
+  import "@fontsource/inter/500.css";
+  import "@fontsource/inter/600.css";
+  import "@fontsource/inter/700.css";
   import Navigation from "$lib/components/Navigation.svelte";
   import { page } from "$app/stores";
   import { fade } from "svelte/transition";
 
   let { children } = $props();
 </script>
-
-<svelte:head>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin="anonymous"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-</svelte:head>
 
 <div
   class="min-h-screen flex flex-col font-sans"

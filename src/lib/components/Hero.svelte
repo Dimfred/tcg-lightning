@@ -16,32 +16,28 @@
   // Screenshots carousel
   const screenshots: Screenshot[] = [
     {
-      src: asset("/screenshots/deck-builder.jpg"),
-      caption: "Build and manage your decks with a clean, intuitive interface.",
+      src: asset("/screenshots/deck-builder.webp"),
+      caption: "MTG deck builder interface — build and manage your Magic: The Gathering decks",
     },
     {
-      src: asset("/screenshots/card-search.jpg"),
-      caption:
-        "Search using Scryfall syntax or natural language - find cards your way.",
+      src: asset("/screenshots/card-search.webp"),
+      caption: "Magic card search with Scryfall syntax and natural language AI",
     },
     {
-      src: asset("/screenshots/proxies.jpg"),
-      caption:
-        "Create custom proxies with your own artwork directly in the app.",
+      src: asset("/screenshots/proxies.webp"),
+      caption: "MTG proxy generator — create custom proxy cards for playtesting",
     },
     {
-      src: asset("/screenshots/ai-chat.jpg"),
-      caption:
-        "Use AI to tag cards, suggest cuts, find synergies, or get deck recommendations.",
+      src: asset("/screenshots/ai-chat.webp"),
+      caption: "AI deck building assistant — card suggestions, synergies, and recommendations",
     },
     {
-      src: asset("/screenshots/edhrec.jpg"),
-      caption:
-        "Use EDHREC integration to discover powerful synergies for your deck.",
+      src: asset("/screenshots/edhrec.webp"),
+      caption: "EDHREC integration for Commander deck building — synergy scores and staples",
     },
     {
-      src: asset("/screenshots/archidekt.jpg?v=2"),
-      caption: "Discover combos in your deck with Archidekt's ComboSpellbook.",
+      src: asset("/screenshots/archidekt.webp"),
+      caption: "Automatic combo detection with Archidekt ComboSpellbook",
     },
   ];
 
@@ -90,16 +86,21 @@
       <!-- Logo -->
       <div class="flex justify-center mb-6">
         <img
-          src={asset("/logo_full.png")}
-          alt="TCG Lightning"
+          src={asset("/logo_full.webp")}
+          alt="TCG Lightning - Free Magic: The Gathering Deck Builder"
+          width="956"
+          height="236"
           class="h-16 md:h-24 w-auto drop-shadow-lg"
         />
       </div>
 
       <!-- Tagline -->
-      <p class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-        A fast, modern deck builder for<br />
+      <h1 class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-normal">
+        A Fast, Modern <span class="text-foreground font-medium">MTG Deck Builder</span> for<br />
         <span class="text-foreground font-medium">Magic: The Gathering</span>
+      </h1>
+      <p class="text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto mt-2">
+        Free desktop app with AI assistance, EDHREC synergies, and offline card search
       </p>
 
       <!-- CTA Button (desktop only) -->
@@ -139,6 +140,9 @@
                     <img
                       src={screenshot.src}
                       alt={screenshot.caption}
+                      loading={i === 0 ? "eager" : "lazy"}
+                      width="1920"
+                      height="1080"
                       class={[1, 3, 4].includes(i)
                         ? "h-full w-auto max-w-full object-contain"
                         : "w-full h-auto"}
@@ -149,7 +153,7 @@
                 <!-- Spacer to maintain aspect ratio -->
                 <img
                   src={screenshots[0].src}
-                  alt=""
+                  alt="TCG Lightning screenshot"
                   class="w-full h-auto invisible"
                   aria-hidden="true"
                 />
