@@ -96,11 +96,10 @@
 
       <!-- Tagline -->
       <h1 class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-normal">
-        A Fast, Modern <span class="text-foreground font-medium">MTG Deck Builder</span> for<br />
-        <span class="text-foreground font-medium">Magic: The Gathering</span>
+        A Modern <span class="text-foreground font-medium">Magic: The Gathering</span> Deck Building App for Desktop
       </h1>
       <p class="text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto mt-2">
-        Free desktop app with AI assistance, EDHREC synergies, and offline card search
+        With offline card search, EDHREC, Archidekt ComboSpellbook integration and AI Tooling
       </p>
 
       <!-- CTA Button (desktop only) -->
