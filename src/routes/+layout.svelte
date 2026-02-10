@@ -17,7 +17,11 @@
 >
   <Navigation />
   {#key $page.url.pathname}
-    <main class="flex-1" in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}>
+    <main
+      class="flex-1"
+      in:fade={{ duration: 200, delay: 200 }}
+      out:fade={{ duration: 200 }}
+    >
       {@render children()}
     </main>
   {/key}

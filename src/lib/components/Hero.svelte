@@ -17,7 +17,8 @@
   const screenshots: Screenshot[] = [
     {
       src: asset("/screenshots/deck-builder.webp"),
-      caption: "MTG deck builder interface — build and manage your Magic: The Gathering decks",
+      caption:
+        "MTG deck builder interface — build and manage your Magic: The Gathering decks",
     },
     {
       src: asset("/screenshots/card-search.webp"),
@@ -25,15 +26,18 @@
     },
     {
       src: asset("/screenshots/proxies.webp"),
-      caption: "MTG proxy generator — create custom proxy cards for playtesting",
+      caption:
+        "MTG proxy generator — create custom proxy cards for playtesting",
     },
     {
       src: asset("/screenshots/ai-chat.webp"),
-      caption: "AI deck building assistant — card suggestions, synergies, and recommendations",
+      caption:
+        "AI deck building assistant — card suggestions, synergies, and recommendations",
     },
     {
       src: asset("/screenshots/edhrec.webp"),
-      caption: "EDHREC integration for Commander deck building — synergy scores and staples",
+      caption:
+        "EDHREC integration for Commander deck building — synergy scores and staples",
     },
     {
       src: asset("/screenshots/archidekt.webp"),
@@ -95,11 +99,18 @@
       </div>
 
       <!-- Tagline -->
-      <h1 class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-normal">
-        A Modern <span class="text-foreground font-medium">Magic: The Gathering</span> Deck Building App for Desktop
+      <h1
+        class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-normal"
+      >
+        A Modern <span class="text-foreground font-medium"
+          >Magic: The Gathering</span
+        > Deck Building App for Desktop
       </h1>
-      <p class="text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto mt-2">
-        With offline card search, EDHREC, Archidekt ComboSpellbook integration and AI Tooling
+      <p
+        class="text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto mt-2"
+      >
+        With offline card search, EDHREC, Archidekt ComboSpellbook integration
+        and AI Tooling
       </p>
 
       <!-- CTA Button (desktop only) -->

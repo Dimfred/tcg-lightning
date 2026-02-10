@@ -81,7 +81,13 @@
 >
   <nav class="container mx-auto px-4 h-full flex items-center justify-between">
     <a href={resolve("/")} class="flex items-center">
-      <img src={asset("/logo_full.webp")} alt="TCG Lightning" width="956" height="236" class="h-8 w-auto" />
+      <img
+        src={asset("/logo_full.webp")}
+        alt="TCG Lightning"
+        width="956"
+        height="236"
+        class="h-8 w-auto"
+      />
     </a>
 
     <!-- Desktop Navigation -->

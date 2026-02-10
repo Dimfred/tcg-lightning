@@ -56,17 +56,17 @@
         class="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4 text-left"
       >
         <p class="text-muted-foreground leading-relaxed">
-          By subscribing to <span class="text-foreground font-medium">TCG Lightning Premium</span>,
-          you're directly supporting the development of this project. Your contribution
-          helps keep the app free for everyone and allows us to keep building new features.
+          By subscribing to <span class="text-foreground font-medium"
+            >TCG Lightning Premium</span
+          >, you're directly supporting the development of this project. Your
+          contribution helps keep the app free for everyone and allows us to
+          keep building new features.
         </p>
         <p class="text-muted-foreground leading-relaxed">
           We're a small team passionate about making the best MTG deck building
           experience possible — and supporters like you make that happen.
         </p>
-        <p class="text-lg text-foreground font-medium">
-          Seriously, thank you.
-        </p>
+        <p class="text-lg text-foreground font-medium">Seriously, thank you.</p>
       </div>
 
       <!-- Back button -->

@@ -38,7 +38,11 @@
         { label: "Card Tagging", icon: Tag, href: "#card-tagging" },
         { label: "Import/Export", icon: FileInput, href: "#import-export" },
         { label: "Proxy Printing", icon: Printer, href: "#proxy-printing" },
-        { label: "Keyboard Shortcuts", icon: Keyboard, href: "#keyboard-shortcuts" },
+        {
+          label: "Keyboard Shortcuts",
+          icon: Keyboard,
+          href: "#keyboard-shortcuts",
+        },
       ],
     },
   ];
@@ -46,17 +50,32 @@
 
 <svelte:head>
   <title>TCG Lightning Wiki - MTG Deck Builder Guide & Documentation</title>
-  <meta name="description" content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts." />
+  <meta
+    name="description"
+    content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts."
+  />
   <link rel="canonical" href="https://tcg-lightning.com/wiki" />
 
   <!-- Open Graph overrides for wiki -->
-  <meta property="og:title" content="TCG Lightning Wiki - MTG Deck Builder Guide" />
-  <meta property="og:description" content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts." />
+  <meta
+    property="og:title"
+    content="TCG Lightning Wiki - MTG Deck Builder Guide"
+  />
+  <meta
+    property="og:description"
+    content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts."
+  />
   <meta property="og:url" content="https://tcg-lightning.com/wiki" />
 
   <!-- Twitter overrides for wiki -->
-  <meta name="twitter:title" content="TCG Lightning Wiki - MTG Deck Builder Guide" />
-  <meta name="twitter:description" content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts." />
+  <meta
+    name="twitter:title"
+    content="TCG Lightning Wiki - MTG Deck Builder Guide"
+  />
+  <meta
+    name="twitter:description"
+    content="Complete guide for TCG Lightning: Scryfall card search, AI assistant setup, proxy printing, deck import/export, and keyboard shortcuts."
+  />
 
   {@html '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"TCG Lightning Wiki","description":"Complete guide for TCG Lightning MTG deck builder - card search, AI assistant, proxy printing, and more.","url":"https://tcg-lightning.com/wiki","isPartOf":{"@type":"WebSite","name":"TCG Lightning","url":"https://tcg-lightning.com/"}}</script>'}
   {@html '<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tcg-lightning.com/"},{"@type":"ListItem","position":2,"name":"Wiki","item":"https://tcg-lightning.com/wiki"}]}</script>'}
@@ -125,19 +144,26 @@
 
       <h2 id="troubleshooting">Bug Reporting</h2>
       <p>
-        TCG Lightning is under active development. If you encounter any issues, please report them directly in the app by clicking the bug icon at the top.
+        TCG Lightning is under active development. If you encounter any issues,
+        please report them directly in the app by clicking the bug icon at the
+        top.
       </p>
 
       <h2 id="getting-started">Getting Started</h2>
       <p>
-        When you first launch TCG Lightning, the app will automatically download the Scryfall card database.
-        This process takes a few minutes. The app will prompt you from time to time when database updates are available.
+        When you first launch TCG Lightning, the app will automatically download
+        the Scryfall card database. This process takes a few minutes. The app
+        will prompt you from time to time when database updates are available.
       </p>
 
       <h2 id="card-search">Card Search</h2>
       <p>
-        TCG Lightning uses <a href="https://scryfall.com/docs/syntax" target="_blank" rel="noopener noreferrer">Scryfall search syntax</a>.
-        Press <code>Ctrl+Enter</code> in the search box to convert natural language queries into Scryfall syntax using AI.
+        TCG Lightning uses <a
+          href="https://scryfall.com/docs/syntax"
+          target="_blank"
+          rel="noopener noreferrer">Scryfall search syntax</a
+        >. Press <code>Ctrl+Enter</code> in the search box to convert natural language
+        queries into Scryfall syntax using AI.
       </p>
 
       <h2 id="ai-assistant">AI Assistant</h2>
@@ -146,10 +172,20 @@
 
       <h4>OpenRouter (Recommended)</h4>
       <p>
-        <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">OpenRouter</a> offers 50 free requests per day.
+        <a
+          href="https://openrouter.ai/"
+          target="_blank"
+          rel="noopener noreferrer">OpenRouter</a
+        > offers 50 free requests per day.
       </p>
       <ol>
-        <li>Sign up at <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer">openrouter.ai</a></li>
+        <li>
+          Sign up at <a
+            href="https://openrouter.ai/"
+            target="_blank"
+            rel="noopener noreferrer">openrouter.ai</a
+          >
+        </li>
         <li>Click your profile (top right) → API Keys tab</li>
         <li>Generate an API key</li>
         <li>In TCG Lightning: Settings → LLM Providers → Add to OpenRouter</li>
@@ -158,23 +194,37 @@
 
       <h4>Google Gemini</h4>
       <p>
-        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google Gemini</a> offers a generous free API tier.
+        <a
+          href="https://aistudio.google.com/apikey"
+          target="_blank"
+          rel="noopener noreferrer">Google Gemini</a
+        > offers a generous free API tier.
       </p>
       <ol>
-        <li>Go to <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a></li>
+        <li>
+          Go to <a
+            href="https://aistudio.google.com/apikey"
+            target="_blank"
+            rel="noopener noreferrer">Google AI Studio</a
+          >
+        </li>
         <li>Create an account and generate an API key</li>
-        <li>In TCG Lightning: Settings → LLM Providers → Add to Google Gemini</li>
+        <li>
+          In TCG Lightning: Settings → LLM Providers → Add to Google Gemini
+        </li>
         <li>Paste your API key and save</li>
       </ol>
 
       <h3 id="api-key-storage">Secure API Key Storage</h3>
       <p>
-        API keys are stored securely using Tauri plugin vault (Stronghold from IOTA). They are never stored in plain text.
+        API keys are stored securely using Tauri plugin vault (Stronghold from
+        IOTA). They are never stored in plain text.
       </p>
 
       <h3 id="ai-features">AI Features</h3>
       <p>
-        Open the AI assistant with <code>Ctrl+K</code>. You can use AI to tag your creatures and get deck recommendations.
+        Open the AI assistant with <code>Ctrl+K</code>. You can use AI to tag
+        your creatures and get deck recommendations.
       </p>
 
       <h2 id="card-tagging">Card Tagging</h2>
@@ -184,16 +234,17 @@
 
       <h2 id="import-export">Import/Export</h2>
       <p>
-        Import decks with <code>Ctrl+I</code>. Export decks with <code>Ctrl+E</code>.
-        Supports plain text and Cockatrice format.
+        Import decks with <code>Ctrl+I</code>. Export decks with
+        <code>Ctrl+E</code>. Supports plain text and Cockatrice format.
       </p>
 
       <h2 id="proxy-printing">Proxy Printing</h2>
 
       <h3 id="generating-proxies">Generating Proxy PDFs</h3>
       <p>
-        TCG Lightning can generate high-quality proxy PDFs for playtesting purposes. The feature creates
-        print-ready PDFs with proper card sizing and layout.
+        TCG Lightning can generate high-quality proxy PDFs for playtesting
+        purposes. The feature creates print-ready PDFs with proper card sizing
+        and layout.
       </p>
       <ol>
         <li>Open a deck</li>
@@ -205,23 +256,33 @@
 
       <h3 id="print-settings">Print Settings</h3>
       <ul>
-        <li><strong>Paper Size</strong> - Choose A4 (international) or Letter (US) size</li>
-        <li><strong>Crop Marks</strong> - Add cutting guides for precise trimming</li>
-        <li><strong>Black Corners</strong> - Fill corners to match real Magic cards</li>
-        <li><strong>Card Backs</strong> - Include generic Magic backs for double-sided printing</li>
-        <li><strong>Exclude Basic Lands</strong> - Skip basic lands (use real ones instead)</li>
+        <li>
+          <strong>Paper Size</strong> - Choose A4 (international) or Letter (US) size
+        </li>
+        <li>
+          <strong>Crop Marks</strong> - Add cutting guides for precise trimming
+        </li>
+        <li>
+          <strong>Black Corners</strong> - Fill corners to match real Magic cards
+        </li>
+        <li>
+          <strong>Card Backs</strong> - Include generic Magic backs for double-sided
+          printing
+        </li>
+        <li>
+          <strong>Exclude Basic Lands</strong> - Skip basic lands (use real ones instead)
+        </li>
       </ul>
 
       <h3 id="proxy-quality">Quality and Usage</h3>
       <p>
-        Proxies generated by TCG Lightning use high-resolution card images from Scryfall. They are intended
-        for playtesting only and should not be used in sanctioned tournaments.
+        Proxies generated by TCG Lightning use high-resolution card images from
+        Scryfall. They are intended for playtesting only and should not be used
+        in sanctioned tournaments.
       </p>
 
       <h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
-      <p>
-        All keyboard shortcuts can be customized in Settings → Keybindings.
-      </p>
+      <p>All keyboard shortcuts can be customized in Settings → Keybindings.</p>
     </div>
   </main>
 </div>
