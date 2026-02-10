@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /premium/
 
 Sitemap: https://tcg-lightning.com/sitemap.xml
