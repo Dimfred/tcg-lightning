@@ -13,7 +13,7 @@ type CachedReleaseData = {
 };
 
 const CACHE_KEY = "tcg-lightning-releases";
-const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 const GITHUB_API_URL =
   "https://api.github.com/repos/dimfred/tcg-lightning/releases";
 
