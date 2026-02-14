@@ -79,6 +79,23 @@ release: ## publish latest release from releases/ folder
 	fi
 	$(MAKE) release-aur
 
+release-dev: ## publish dev release as RC (no --latest flag)
+	@echo "Finding latest RC release..."
+	@RC_TAG=$$(ls -1 releases/ | grep -oP 'tcg-lightning_\K[0-9]+\.[0-9]+\.[0-9]+-rc[0-9]+' | sort -V | tail -n1); \
+	if [ -z "$$RC_TAG" ]; then \
+		echo "Error: No RC releases found in releases/ folder"; \
+		exit 1; \
+	fi; \
+	echo ""; \
+	echo "Files to publish:"; \
+	ls -lh releases/ | grep "$$RC_TAG"; \
+	echo ""; \
+	echo "Publishing dev release v$$RC_TAG..."; \
+	gh release create "v$$RC_TAG" releases/*tcg-lightning_$${RC_TAG}* \
+		--title "v$$RC_TAG" \
+		--notes "" \
+		--prerelease
+
 ################################################################################
 # AUR
 release-aur: ## update AUR package with correct version and hash

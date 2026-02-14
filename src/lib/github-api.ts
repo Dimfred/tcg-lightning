@@ -4,6 +4,7 @@ export type GitHubRelease = {
   body: string;
   published_at: string;
   html_url: string;
+  prerelease: boolean;
 };
 
 type CachedReleaseData = {
@@ -69,10 +70,13 @@ export async function fetchReleases(): Promise<{
       throw new Error(`GitHub API error: ${response.status}`);
     }
 
-    const releases = (await response.json()) as GitHubRelease[];
+    const allReleases = (await response.json()) as GitHubRelease[];
+
+    // Filter out prereleases
+    const releases = allReleases.filter((release) => !release.prerelease);
 
     const latestVersion =
-      releases.length > 0 ? parseVersion(releases[0].tag_name) : "0.1.17";
+      releases.length > 0 ? parseVersion(releases[0].tag_name) : "latest";
 
     // Cache the result
     const cacheData: CachedReleaseData = {
@@ -89,7 +93,7 @@ export async function fetchReleases(): Promise<{
     // Return fallback data if fetch fails
     return {
       releases: [],
-      latestVersion: "0.1.17",
+      latestVersion: "latest",
     };
   }
 }
