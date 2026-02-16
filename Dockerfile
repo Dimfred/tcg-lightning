@@ -13,19 +13,20 @@ COPY svelte.config.js ./
 COPY vite.config.js ./
 COPY tsconfig.json ./
 
-# Build the static site
+# Build the app
 RUN NODE_ENV=production bun run build
 
-FROM nginx:alpine
+FROM oven/bun:latest
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /app
 
-# Copy built static files from builder
-COPY --from=builder /app/build ./
+# Copy built files
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/package.json ./
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+ENV NODE_ENV=production
+ENV PORT=3000
 
-EXPOSE 80
+EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["bun", "build/index.js"]

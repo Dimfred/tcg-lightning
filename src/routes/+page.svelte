@@ -1,22 +1,9 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { fetchReleases } from "$lib/github-api";
   import Hero from "$lib/components/Hero.svelte";
   import AboutSection from "$lib/components/AboutSection.svelte";
   import DownloadSection from "$lib/components/DownloadSection.svelte";
 
   let { data } = $props();
-
-  // svelte-ignore state_referenced_locally
-  let version = $state(data.version);
-  // svelte-ignore state_referenced_locally
-  let releases = $state(data.releases);
-
-  onMount(async () => {
-    const result = await fetchReleases();
-    version = result.latestVersion;
-    releases = result.releases;
-  });
 </script>
 
 <svelte:head>
@@ -32,4 +19,4 @@
 
 <Hero />
 <AboutSection />
-<DownloadSection {version} {releases} />
+<DownloadSection version={data.version} releases={data.releases} />

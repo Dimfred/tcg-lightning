@@ -1,1 +1,1 @@
-export const prerender = true;
+// Prerender is set per-page where needed
