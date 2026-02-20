@@ -90,16 +90,26 @@
           <Badge variant="secondary">v{version}</Badge>
         </Card.Header>
         <Card.Content class="space-y-3">
-          <Button
-            class="w-full"
-            size="lg"
-            href={latestReleasePage}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Download class="size-4" />
-            Download .exe
-          </Button>
+          <div class="relative group">
+            <Button
+              class="w-full"
+              size="lg"
+              href={latestReleasePage}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Download class="size-4" />
+              Download .exe
+            </Button>
+            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 p-3 bg-popover border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+              <p class="text-xs text-muted-foreground mb-2">
+                <strong>Unsigned installer:</strong> Windows code signing is expensive - too expensive right now. Windows SmartScreen may show a warning for unsigned apps.
+              </p>
+              <p class="text-xs text-muted-foreground">
+                Click "More info" then "Run anyway" to proceed with the installation.
+              </p>
+            </div>
+          </div>
         </Card.Content>
       </Card.Root>
 
@@ -149,26 +159,20 @@
           <Badge variant="secondary">v{version}</Badge>
         </Card.Header>
         <Card.Content class="space-y-3">
-          <Button
-            class="w-full"
-            size="lg"
-            href={latestReleasePage}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Download class="size-4" />
-            Download .dmg
-          </Button>
-          <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
-            brew install Dimfred/tap/tcg-lightning
-          </div>
           <div class="relative group">
-            <p class="text-xs text-muted-foreground text-center cursor-help border-b border-dashed border-muted-foreground/50 inline-block w-full">
-              Developer-signed binary - click for install help
-            </p>
+            <Button
+              class="w-full"
+              size="lg"
+              href={latestReleasePage}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Download class="size-4" />
+              Download .dmg
+            </Button>
             <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 p-3 bg-popover border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
               <p class="text-xs text-muted-foreground mb-2">
-                <strong>Without Homebrew:</strong> Download the .dmg, then remove the quarantine attribute via Terminal:
+                <strong>Unsigned binary:</strong> Apple code signing costs $99/year - too expensive right now. macOS adds a quarantine attribute to unsigned apps. To remove it:
               </p>
               <p class="text-xs text-muted-foreground mb-1">
                 1. Press <kbd class="px-1 py-0.5 bg-muted rounded text-[10px]">Cmd</kbd> + <kbd class="px-1 py-0.5 bg-muted rounded text-[10px]">Space</kbd>, type "Terminal", press Enter
@@ -181,6 +185,9 @@
                 3. Open the .dmg and drag the app to Applications
               </p>
             </div>
+          </div>
+          <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
+            brew install Dimfred/tap/tcg-lightning
           </div>
         </Card.Content>
       </Card.Root>
