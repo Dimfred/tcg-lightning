@@ -51,7 +51,7 @@
         <Badge variant="secondary" class="ml-2 align-middle">v{version}</Badge>
       </h2>
       <p class="text-lg text-muted-foreground">
-        A native desktop application for Windows and Linux
+        A native desktop application for Windows, Linux, and macOS
       </p>
     </div>
 
@@ -66,8 +66,8 @@
         </Card.Header>
         <Card.Content>
           <p class="text-muted-foreground mb-4">
-            TCG Lightning is a desktop application designed for Windows and
-            Linux computers.
+            TCG Lightning is a desktop application designed for Windows,
+            Linux, and macOS computers.
           </p>
           <p class="text-sm text-muted-foreground">
             Visit this page on your PC to download and install the app.
@@ -121,7 +121,7 @@
             rel="noopener noreferrer"
           >
             <Download class="size-4" />
-            Download AppImage
+            Download .deb
           </Button>
           <Button
             class="w-full"
@@ -131,7 +131,7 @@
             rel="noopener noreferrer"
           >
             <Download class="size-4" />
-            Download .deb
+            Download .rpm
           </Button>
           <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
             paru -Sy tcg-lightning-bin
@@ -140,16 +140,48 @@
       </Card.Root>
 
       <!-- macOS -->
-      <Card.Root class="opacity-60">
+      <Card.Root class="hover:border-primary/50 transition-all duration-200">
         <Card.Header class="text-center">
           <div class="flex justify-center mb-4">
-            <Apple class="size-12 text-muted-foreground" />
+            <Apple class="size-12 text-primary" />
           </div>
           <Card.Title class="text-xl">macOS</Card.Title>
-          <Badge variant="secondary">Coming Soon</Badge>
+          <Badge variant="secondary">v{version}</Badge>
         </Card.Header>
         <Card.Content class="space-y-3">
-          <Button class="w-full" disabled>Not Available</Button>
+          <Button
+            class="w-full"
+            size="lg"
+            href={latestReleasePage}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Download class="size-4" />
+            Download .dmg
+          </Button>
+          <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
+            brew install Dimfred/tap/tcg-lightning
+          </div>
+          <div class="relative group">
+            <p class="text-xs text-muted-foreground text-center cursor-help border-b border-dashed border-muted-foreground/50 inline-block w-full">
+              Developer-signed binary - click for install help
+            </p>
+            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 p-3 bg-popover border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+              <p class="text-xs text-muted-foreground mb-2">
+                <strong>Without Homebrew:</strong> Download the .dmg, then remove the quarantine attribute via Terminal:
+              </p>
+              <p class="text-xs text-muted-foreground mb-1">
+                1. Press <kbd class="px-1 py-0.5 bg-muted rounded text-[10px]">Cmd</kbd> + <kbd class="px-1 py-0.5 bg-muted rounded text-[10px]">Space</kbd>, type "Terminal", press Enter
+              </p>
+              <p class="text-xs text-muted-foreground mb-1">
+                2. Paste this command and press Enter:
+              </p>
+              <code class="block text-xs bg-muted p-2 rounded mb-2">xattr -c ~/Downloads/macos-tcg-lightning*.dmg</code>
+              <p class="text-xs text-muted-foreground">
+                3. Open the .dmg and drag the app to Applications
+              </p>
+            </div>
+          </div>
         </Card.Content>
       </Card.Root>
     </div>
