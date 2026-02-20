@@ -49,7 +49,7 @@ docker-down: ## stop docker compose
 # RELEASE
 release: ## publish latest release from releases/ folder
 	@echo "Finding latest release..."
-	@VERSION=$$(ls -1 releases/ | grep -oP 'tcg-lightning_\K[0-9]+\.[0-9]+\.[0-9]+' | sort -V | tail -n1); \
+	@VERSION=$$(ls -1 releases/ | grep -v '\-rc' | grep -oP 'tcg-lightning_\K[0-9]+\.[0-9]+\.[0-9]+' | sort -V | tail -n1); \
 	if [ -z "$$VERSION" ]; then \
 		echo "Error: No releases found in releases/ folder"; \
 		exit 1; \
@@ -57,7 +57,7 @@ release: ## publish latest release from releases/ folder
 	echo "Latest version: $$VERSION"; \
 	echo ""; \
 	echo "Files to publish:"; \
-	ls -lh releases/ | grep "$$VERSION"; \
+	ls -lh releases/ | grep "$$VERSION" | grep -v '\-rc'; \
 	echo ""; \
 	read -p "Publish release v$$VERSION? [y/N] " -n 1 -r; \
 	echo ""; \
@@ -69,7 +69,7 @@ release: ## publish latest release from releases/ folder
 			exit 1; \
 		fi; \
 		echo "Publishing release v$$VERSION..."; \
-		gh release create "v$$VERSION" releases/*tcg-lightning_$${VERSION}* \
+		gh release create "v$$VERSION" $$(ls releases/*tcg-lightning_$${VERSION}* | grep -v '\-rc') \
 			--title "v$$VERSION" \
 			--notes-file "$$NOTES_FILE" \
 			--latest; \
