@@ -46,7 +46,7 @@ docker-build: ## Build the docker image, extra args with DOCKER_ARGS=...
 	$(DOCKER) \
 		build \
 		$${DOCKER_ARGS} \
-		--network host \
+		--platform linux/amd64 \
 		--build-arg BUILD_DATE=$(RELEASE_DATE) \
 		-t $(IMAGE_NAME):$(RELEASE_DATE_TAG) \
 		-t $(IMAGE_NAME):latest \
