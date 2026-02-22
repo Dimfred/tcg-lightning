@@ -6,6 +6,7 @@
     ChevronDown,
     ChevronLeft,
     ChevronRight,
+    X,
   } from "lucide-svelte";
 
   type Screenshot = {
@@ -17,22 +18,22 @@
   const screenshots: Screenshot[] = [
     {
       src: asset("/screenshots/deck-builder.webp"),
-      caption:
-        "MTG deck builder interface — build and manage your Magic: The Gathering decks",
+      caption: "Build your deck — Scryfall search and Statistics",
     },
     {
       src: asset("/screenshots/card-search.webp"),
-      caption: "Magic card search with Scryfall syntax and natural language AI",
+      caption:
+        "Convert natural language to Scryfall syntax with the help of AI",
     },
     {
       src: asset("/screenshots/proxies.webp"),
       caption:
-        "MTG proxy generator — create custom proxy cards for playtesting",
+        "Proxy generator — you want to playtest your deck? No problem, generate a pdf, and print away",
     },
     {
       src: asset("/screenshots/ai-chat.webp"),
       caption:
-        "AI deck building assistant — card suggestions, synergies, and recommendations",
+        "AI deck building assistant — card suggestions, synergies, tagging, the whole app is agentic, meaning the AI can interact with everything inside the app",
     },
     {
       src: asset("/screenshots/edhrec.webp"),
@@ -48,6 +49,21 @@
   let currentSlide = $state(0);
   let allFailed = $state(false);
   let failedCount = $state(0);
+
+  // Lightbox state (desktop)
+  let lightboxOpen = $state(false);
+  let lightboxSlide = $state(0);
+
+  // Mobile fullscreen state
+  let mobileFullscreenOpen = $state(false);
+  let mobileFullscreenSlide = $state(0);
+
+  // Touch/swipe state
+  let touchStartX = $state(0);
+  let touchEndX = $state(0);
+  let touchStartTime = $state(0);
+  const SWIPE_THRESHOLD = 100;
+  const TAP_THRESHOLD = 200; // ms - taps shorter than this open fullscreen
 
   function nextSlide() {
     currentSlide = (currentSlide + 1) % screenshots.length;
@@ -68,7 +84,143 @@
     const element = document.getElementById("download");
     element?.scrollIntoView({ behavior: "smooth" });
   }
+
+  // Lightbox functions
+  function openLightbox(index: number) {
+    lightboxSlide = index;
+    lightboxOpen = true;
+  }
+
+  function closeLightbox() {
+    lightboxOpen = false;
+  }
+
+  function lightboxNext() {
+    lightboxSlide = (lightboxSlide + 1) % screenshots.length;
+  }
+
+  function lightboxPrev() {
+    lightboxSlide =
+      (lightboxSlide - 1 + screenshots.length) % screenshots.length;
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (!lightboxOpen) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") lightboxNext();
+    if (e.key === "ArrowLeft") lightboxPrev();
+  }
+
+  // Mobile fullscreen functions
+  let fullscreenContainer: HTMLDivElement | null = null;
+
+  async function openMobileFullscreen(index: number) {
+    mobileFullscreenSlide = index;
+    mobileFullscreenOpen = true;
+    document.body.style.overflow = "hidden";
+
+    // Try to enter browser fullscreen mode (hides URL bar)
+    await new Promise((r) => setTimeout(r, 50)); // Wait for element to render
+    try {
+      if (fullscreenContainer?.requestFullscreen) {
+        await fullscreenContainer.requestFullscreen();
+      }
+    } catch {
+      // Fullscreen not supported or denied, continue without it
+    }
+  }
+
+  async function closeMobileFullscreen() {
+    // Exit browser fullscreen if active
+    if (document.fullscreenElement) {
+      try {
+        await document.exitFullscreen();
+      } catch {
+        // Ignore errors
+      }
+    }
+    mobileFullscreenOpen = false;
+    document.body.style.overflow = "";
+  }
+
+  function mobileFullscreenNext() {
+    mobileFullscreenSlide = (mobileFullscreenSlide + 1) % screenshots.length;
+  }
+
+  function mobileFullscreenPrev() {
+    mobileFullscreenSlide =
+      (mobileFullscreenSlide - 1 + screenshots.length) % screenshots.length;
+  }
+
+  // Touch/swipe handlers for carousel
+  function handleTouchStart(e: TouchEvent) {
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }
+
+  function handleTouchEnd(e: TouchEvent) {
+    touchEndX = e.changedTouches[0].clientX;
+    const swipeDistance = touchStartX - touchEndX;
+    const touchDuration = Date.now() - touchStartTime;
+
+    // If it's a tap (short duration, minimal movement), open fullscreen
+    if (touchDuration < TAP_THRESHOLD && Math.abs(swipeDistance) < 10) {
+      openMobileFullscreen(currentSlide);
+      return;
+    }
+
+    // Otherwise handle as swipe
+    if (Math.abs(swipeDistance) > SWIPE_THRESHOLD) {
+      if (swipeDistance > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+  }
+
+  // Touch handlers for mobile fullscreen navigation
+  let fullscreenTouchStartX = $state(0);
+  let fullscreenWasMultiTouch = $state(false);
+
+  function handleFullscreenTouchStart(e: TouchEvent) {
+    // If more than one finger, it's a zoom gesture
+    if (e.touches.length > 1) {
+      fullscreenWasMultiTouch = true;
+      return;
+    }
+    fullscreenWasMultiTouch = false;
+    fullscreenTouchStartX = e.touches[0].clientX;
+  }
+
+  function handleFullscreenTouchEnd(e: TouchEvent) {
+    // Ignore if this was part of a multi-touch (zoom) gesture
+    if (fullscreenWasMultiTouch) {
+      fullscreenWasMultiTouch = false;
+      return;
+    }
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const swipeDistance = fullscreenTouchStartX - touchEndX;
+
+    if (Math.abs(swipeDistance) > SWIPE_THRESHOLD) {
+      if (swipeDistance > 0) {
+        mobileFullscreenNext();
+      } else {
+        mobileFullscreenPrev();
+      }
+    }
+  }
+
+  function handleFullscreenTouchMove(e: TouchEvent) {
+    // Mark as multi-touch if additional fingers added during gesture
+    if (e.touches.length > 1) {
+      fullscreenWasMultiTouch = true;
+    }
+  }
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <section
   id="hero"
@@ -137,7 +289,13 @@
               <span class="text-muted-foreground">Screenshots coming soon</span>
             {:else}
               <!-- Carousel Container -->
-              <div class="relative">
+              <div
+                class="relative"
+                role="region"
+                aria-label="Screenshot carousel"
+                ontouchstart={handleTouchStart}
+                ontouchend={handleTouchEnd}
+              >
                 {#each screenshots as screenshot, i}
                   <div
                     class="absolute inset-0 transition-opacity duration-500 {i ===
@@ -147,15 +305,33 @@
                       ? 'flex items-center justify-center bg-card px-8 md:px-16'
                       : ''}"
                   >
+                    <button
+                      type="button"
+                      class="hidden md:block w-full h-full cursor-zoom-in"
+                      onclick={() => openLightbox(i)}
+                      aria-label="View {screenshot.caption} in full size"
+                    >
+                      <img
+                        src={screenshot.src}
+                        alt={screenshot.caption}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        width="1920"
+                        height="1080"
+                        class={[1, 3, 4].includes(i)
+                          ? "h-full w-auto max-w-full object-contain"
+                          : "w-full h-auto"}
+                        onerror={handleImageError}
+                      />
+                    </button>
                     <img
                       src={screenshot.src}
                       alt={screenshot.caption}
                       loading={i === 0 ? "eager" : "lazy"}
                       width="1920"
                       height="1080"
-                      class={[1, 3, 4].includes(i)
-                        ? "h-full w-auto max-w-full object-contain"
-                        : "w-full h-auto"}
+                      class="md:hidden {[1, 3, 4].includes(i)
+                        ? 'h-full w-auto max-w-full object-contain'
+                        : 'w-full h-auto'}"
                       onerror={handleImageError}
                     />
                   </div>
@@ -172,17 +348,17 @@
                 {#if screenshots.length > 1}
                   <button
                     onclick={prevSlide}
-                    class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors z-20"
+                    class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-black/50 md:bg-black/70 text-white hover:bg-black/80 transition-colors z-20 md:border md:border-white/20 md:shadow-lg md:shadow-black/30"
                     aria-label="Previous screenshot"
                   >
-                    <ChevronLeft class="size-5 md:size-6" />
+                    <ChevronLeft class="size-5 md:size-8" />
                   </button>
                   <button
                     onclick={nextSlide}
-                    class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors z-20"
+                    class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 md:p-3 rounded-full bg-black/50 md:bg-black/70 text-white hover:bg-black/80 transition-colors z-20 md:border md:border-white/20 md:shadow-lg md:shadow-black/30"
                     aria-label="Next screenshot"
                   >
-                    <ChevronRight class="size-5 md:size-6" />
+                    <ChevronRight class="size-5 md:size-8" />
                   </button>
                 {/if}
 
@@ -237,4 +413,114 @@
       </button>
     </div>
   </div>
+
+  <!-- Lightbox Modal -->
+  {#if lightboxOpen}
+    <div
+      class="fixed inset-0 z-50 hidden md:flex items-center justify-center"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image lightbox"
+    >
+      <!-- Backdrop -->
+      <button
+        type="button"
+        class="absolute inset-0 bg-black/90 cursor-default"
+        onclick={closeLightbox}
+        aria-label="Close lightbox"
+      ></button>
+
+      <!-- Close button -->
+      <button
+        type="button"
+        class="absolute top-4 right-4 p-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
+        onclick={closeLightbox}
+        aria-label="Close lightbox"
+      >
+        <X class="size-6" />
+      </button>
+
+      <!-- Navigation arrows -->
+      <button
+        type="button"
+        class="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10 border border-white/20"
+        onclick={lightboxPrev}
+        aria-label="Previous image"
+      >
+        <ChevronLeft class="size-8" />
+      </button>
+      <button
+        type="button"
+        class="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10 border border-white/20"
+        onclick={lightboxNext}
+        aria-label="Next image"
+      >
+        <ChevronRight class="size-8" />
+      </button>
+
+      <!-- Image -->
+      <div class="relative z-10 max-w-[90vw] max-h-[90vh]">
+        <img
+          src={screenshots[lightboxSlide].src}
+          alt={screenshots[lightboxSlide].caption}
+          class="max-w-[90vw] max-h-[85vh] object-contain"
+        />
+        <!-- Caption -->
+        <p class="text-white/80 text-center mt-4 px-4">
+          {screenshots[lightboxSlide].caption}
+        </p>
+      </div>
+    </div>
+  {/if}
+
+  <!-- Mobile Fullscreen Viewer -->
+  {#if mobileFullscreenOpen}
+    <div
+      bind:this={fullscreenContainer}
+      class="fixed inset-0 z-50 flex flex-col bg-black"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Fullscreen image viewer"
+    >
+      <!-- Header with close button -->
+      <div
+        class="flex-shrink-0 flex items-center justify-between px-3 py-1 bg-black/80"
+      >
+        <span class="text-white/60 text-xs">
+          {mobileFullscreenSlide + 1} / {screenshots.length}
+        </span>
+        <button
+          type="button"
+          class="p-1 rounded-full bg-white/10 text-white"
+          onclick={closeMobileFullscreen}
+          aria-label="Close fullscreen"
+        >
+          <X class="size-5" />
+        </button>
+      </div>
+
+      <!-- Zoomable image container -->
+      <div
+        class="flex-1 overflow-auto touch-pan-x touch-pan-y touch-pinch-zoom"
+        ontouchstart={handleFullscreenTouchStart}
+        ontouchmove={handleFullscreenTouchMove}
+        ontouchend={handleFullscreenTouchEnd}
+        role="img"
+        aria-label={screenshots[mobileFullscreenSlide].caption}
+      >
+        <img
+          src={screenshots[mobileFullscreenSlide].src}
+          alt={screenshots[mobileFullscreenSlide].caption}
+          class="min-w-full h-auto"
+        />
+      </div>
+
+      <!-- Caption bar -->
+      <div class="flex-shrink-0 px-4 py-2 bg-black/80">
+        <p class="text-white/80 text-center text-sm">
+          {screenshots[mobileFullscreenSlide].caption}
+        </p>
+      </div>
+    </div>
+  {/if}
 </section>
