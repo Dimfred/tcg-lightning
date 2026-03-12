@@ -22,7 +22,8 @@ create-images: ## create images
 	scripts/create_conversion_image.sh
 
 format: ## format code
-	prettier --write "src/**/*.{svelte,ts,js}"
+	@bun run prettier --write "src/**/*.{svelte,ts,js}" --log-level silent
+	@echo -n "fomatted"
 
 ################################################################################
 # DOCKER

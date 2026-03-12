@@ -10,6 +10,7 @@
     ExternalLink,
     Laptop,
   } from "lucide-svelte";
+  import { reveal } from "$lib/reveal";
   import type { GitHubRelease } from "$lib/github-api";
   import { marked } from "marked";
 
@@ -34,16 +35,27 @@
     return html;
   }
 
-  // Link to the latest release page - GitHub will redirect to the actual download
-  const latestReleasePage =
-    "https://github.com/dimfred/tcg-lightning/releases/latest";
+  const baseUrl = "https://github.com/dimfred/tcg-lightning/releases/download";
 
-  // Get latest release notes (using derived state)
   let latestRelease = $derived(releases?.[0]);
   let releaseNotesHtml = $derived(renderMarkdown(latestRelease?.body));
+
+  let tag = $derived(latestRelease?.tag_name ?? `v${version}`);
+  let windowsUrl = $derived(
+    `${baseUrl}/${tag}/windows-tcg-lightning_${version}_x64-setup.exe`,
+  );
+  let macosUrl = $derived(
+    `${baseUrl}/${tag}/macos-tcg-lightning_${version}_aarch64.dmg`,
+  );
+  let linuxDebUrl = $derived(
+    `${baseUrl}/${tag}/linux-tcg-lightning_${version}_amd64.deb`,
+  );
+  let linuxRpmUrl = $derived(
+    `${baseUrl}/${tag}/linux-tcg-lightning_${version}.x86_64.rpm`,
+  );
 </script>
 
-<section id="download" class="py-16 md:py-24 bg-secondary/30">
+<section id="download" class="py-16 md:py-24">
   <div class="container mx-auto px-4">
     <div class="text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">
@@ -66,8 +78,8 @@
         </Card.Header>
         <Card.Content>
           <p class="text-muted-foreground mb-4">
-            TCG Lightning is a desktop application designed for Windows,
-            Linux, and macOS computers.
+            TCG Lightning is a desktop application designed for Windows, Linux,
+            and macOS computers.
           </p>
           <p class="text-sm text-muted-foreground">
             Visit this page on your PC to download and install the app.
@@ -81,116 +93,121 @@
       class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
     >
       <!-- Windows -->
-      <Card.Root class="hover:border-primary/50 transition-all duration-200">
-        <Card.Header class="text-center">
-          <div class="flex justify-center mb-4">
-            <Monitor class="size-12 text-primary" />
-          </div>
-          <Card.Title class="text-xl">Windows</Card.Title>
-          <Badge variant="secondary">v{version}</Badge>
-        </Card.Header>
-        <Card.Content class="space-y-3">
-          <div class="relative group">
-            <Button
-              class="w-full"
-              size="lg"
-              href={latestReleasePage}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Download class="size-4" />
-              Download .exe
-            </Button>
-            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 p-3 bg-popover border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-              <p class="text-xs text-muted-foreground mb-2">
-                <strong>Unsigned installer:</strong> Windows code signing is expensive - too expensive right now. Windows SmartScreen may show a warning for unsigned apps.
-              </p>
-              <p class="text-xs text-muted-foreground">
-                Click "More info" then "Run anyway" to proceed with the installation.
-              </p>
+      <div use:reveal={0} class="h-full">
+        <Card.Root
+          class="h-full hover:border-primary/50 transition-all duration-200"
+        >
+          <Card.Header class="text-center">
+            <div class="flex justify-center mb-4">
+              <Monitor class="size-12 text-primary" />
             </div>
-          </div>
-        </Card.Content>
-      </Card.Root>
-
-      <!-- Linux -->
-      <Card.Root class="hover:border-primary/50 transition-all duration-200">
-        <Card.Header class="text-center">
-          <div class="flex justify-center mb-4">
-            <Server class="size-12 text-primary" />
-          </div>
-          <Card.Title class="text-xl">Linux</Card.Title>
-          <Badge variant="secondary">v{version}</Badge>
-        </Card.Header>
-        <Card.Content class="space-y-3">
-          <Button
-            class="w-full"
-            size="lg"
-            href={latestReleasePage}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Download class="size-4" />
-            Download .deb
-          </Button>
-          <Button
-            class="w-full"
-            variant="outline"
-            href={latestReleasePage}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Download class="size-4" />
-            Download .rpm
-          </Button>
-          <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
-            paru -Sy tcg-lightning-bin
-          </div>
-        </Card.Content>
-      </Card.Root>
+            <Card.Title class="text-xl">Windows</Card.Title>
+            <Badge variant="secondary">v{version}</Badge>
+          </Card.Header>
+          <Card.Content class="space-y-3">
+            <div class="relative group">
+              <Button class="w-full" size="lg" href={windowsUrl}>
+                <Download class="size-4" />
+                Download .exe
+              </Button>
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 p-3 bg-popover border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10"
+              >
+                <p class="text-xs text-muted-foreground mb-2">
+                  <strong>Unsigned installer:</strong> Windows code signing is expensive
+                  - too expensive right now. Windows SmartScreen may show a warning
+                  for unsigned apps.
+                </p>
+                <p class="text-xs text-muted-foreground">
+                  Click "More info" then "Run anyway" to proceed with the
+                  installation.
+                </p>
+              </div>
+            </div>
+          </Card.Content>
+        </Card.Root>
+      </div>
 
       <!-- macOS -->
-      <Card.Root class="hover:border-primary/50 transition-all duration-200">
-        <Card.Header class="text-center">
-          <div class="flex justify-center mb-4">
-            <Apple class="size-12 text-primary" />
-          </div>
-          <Card.Title class="text-xl">macOS</Card.Title>
-          <Badge variant="secondary">v{version}</Badge>
-        </Card.Header>
-        <Card.Content class="space-y-3">
-          <div class="relative group">
-            <Button
-              class="w-full"
-              size="lg"
-              href={latestReleasePage}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Download class="size-4" />
-              Download .dmg
-            </Button>
-            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 p-3 bg-popover border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
-              <p class="text-xs text-muted-foreground mb-2">
-                <strong>Unsigned binary:</strong> Apple code signing costs $99/year - too expensive right now. macOS adds a quarantine attribute to unsigned apps. To remove it:
-              </p>
-              <p class="text-xs text-muted-foreground mb-1">
-                1. Press <kbd class="px-1 py-0.5 bg-muted rounded text-[10px]">Cmd</kbd> + <kbd class="px-1 py-0.5 bg-muted rounded text-[10px]">Space</kbd>, type "Terminal", press Enter
-              </p>
-              <p class="text-xs text-muted-foreground mb-1">
-                2. Paste this command and press Enter:
-              </p>
-              <code class="block text-xs bg-muted p-2 rounded mb-2">xattr -c ~/Downloads/macos-tcg-lightning*.dmg</code>
-              <p class="text-xs text-muted-foreground">
-                3. Open the .dmg and drag the app to Applications
-              </p>
+      <div use:reveal={100} class="h-full">
+        <Card.Root
+          class="h-full hover:border-primary/50 transition-all duration-200"
+        >
+          <Card.Header class="text-center">
+            <div class="flex justify-center mb-4">
+              <Apple class="size-12 text-primary" />
             </div>
-          </div>
-          <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
-            brew install Dimfred/tap/tcg-lightning
-          </div>
-        </Card.Content>
-      </Card.Root>
+            <Card.Title class="text-xl">macOS</Card.Title>
+            <Badge variant="secondary">v{version}</Badge>
+          </Card.Header>
+          <Card.Content class="space-y-3">
+            <div class="relative group">
+              <Button class="w-full" size="lg" href={macosUrl}>
+                <Download class="size-4" />
+                Download .dmg
+              </Button>
+              <div
+                class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 p-3 bg-popover border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10"
+              >
+                <p class="text-xs text-muted-foreground mb-2">
+                  <strong>Unsigned binary:</strong> Apple code signing costs $99/year
+                  - too expensive right now. macOS adds a quarantine attribute to
+                  unsigned apps. To remove it:
+                </p>
+                <p class="text-xs text-muted-foreground mb-1">
+                  1. Press <kbd class="px-1 py-0.5 bg-muted rounded text-[10px]"
+                    >Cmd</kbd
+                  >
+                  +
+                  <kbd class="px-1 py-0.5 bg-muted rounded text-[10px]"
+                    >Space</kbd
+                  >, type "Terminal", press Enter
+                </p>
+                <p class="text-xs text-muted-foreground mb-1">
+                  2. Paste this command and press Enter:
+                </p>
+                <code class="block text-xs bg-muted p-2 rounded mb-2"
+                  >xattr -c ~/Downloads/macos-tcg-lightning*.dmg</code
+                >
+                <p class="text-xs text-muted-foreground">
+                  3. Open the .dmg and drag the app to Applications
+                </p>
+              </div>
+            </div>
+            <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
+              brew install Dimfred/tap/tcg-lightning
+            </div>
+          </Card.Content>
+        </Card.Root>
+      </div>
+
+      <!-- Linux -->
+      <div use:reveal={200} class="h-full">
+        <Card.Root
+          class="h-full hover:border-primary/50 transition-all duration-200"
+        >
+          <Card.Header class="text-center">
+            <div class="flex justify-center mb-4">
+              <Server class="size-12 text-primary" />
+            </div>
+            <Card.Title class="text-xl">Linux</Card.Title>
+            <Badge variant="secondary">v{version}</Badge>
+          </Card.Header>
+          <Card.Content class="space-y-3">
+            <Button class="w-full" size="lg" href={linuxDebUrl}>
+              <Download class="size-4" />
+              Download .deb
+            </Button>
+            <Button class="w-full" variant="outline" href={linuxRpmUrl}>
+              <Download class="size-4" />
+              Download .rpm
+            </Button>
+            <div class="p-3 bg-muted rounded-md font-mono text-sm text-center">
+              paru -Sy tcg-lightning-bin
+            </div>
+          </Card.Content>
+        </Card.Root>
+      </div>
     </div>
 
     <!-- Release Notes (desktop only) -->
@@ -210,7 +227,7 @@
       <div class="hidden md:block mt-12 max-w-3xl mx-auto">
         <h3 class="text-2xl font-bold mb-6">Release History</h3>
         <div class="space-y-6">
-          {#each releases.slice(1) as release}
+          {#each releases.slice(1, 5) as release}
             <Card.Root>
               <Card.Header>
                 <Card.Title class="flex items-center gap-2">
