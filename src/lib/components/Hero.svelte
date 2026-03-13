@@ -28,7 +28,7 @@
     },
     {
       src: asset("/screenshots/archidekt.webp"),
-      caption: "Automatic combo detection with Archidekt ComboSpellbook",
+      caption: "Automatic combo detection with Archidekt Combo Spellbook",
     },
     {
       src: asset("/screenshots/proxies.webp"),

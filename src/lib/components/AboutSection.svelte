@@ -40,7 +40,7 @@
       <FeatureCard
         icon={Zap}
         title="Automatic Combo Detection"
-        description="Powered by <span class='text-foreground font-medium'>Archidekt</span> ComboSpellbook — find combo lines already in your deck and discover what you're missing. Step-by-step explanations and add missing pieces with one click."
+        description="Powered by <span class='text-foreground font-medium'>Archidekt</span> Combo Spellbook — find combo lines already in your deck and discover what you're missing. Step-by-step explanations and add missing pieces with one click."
         delay={200}
       />
       <FeatureCard
