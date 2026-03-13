@@ -15,9 +15,7 @@
 
   // Check if we're on the home page
   let isHomePage = $derived(
-    $page.url.pathname === resolve("/") ||
-      $page.url.pathname === resolve("") ||
-      $page.url.pathname === "/",
+    $page.url.pathname === resolve("/") || $page.url.pathname === "/",
   );
 
   async function navigateToSection(id: string) {
@@ -94,37 +92,37 @@
     <div class="hidden md:flex items-center gap-6">
       <button
         onclick={() => navigateToSection("hero")}
-        class="text-sm font-medium transition-colors hover:text-primary cursor-pointer {isHomePage &&
+        class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
         activeSection === 'hero'
-          ? 'text-primary'
+          ? 'text-brand'
           : 'text-muted-foreground'}"
       >
         Home
       </button>
       <button
         onclick={() => navigateToSection("about")}
-        class="text-sm font-medium transition-colors hover:text-primary cursor-pointer {isHomePage &&
+        class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
         activeSection === 'about'
-          ? 'text-primary'
+          ? 'text-brand'
           : 'text-muted-foreground'}"
       >
         About
       </button>
       <button
         onclick={() => navigateToSection("download")}
-        class="text-sm font-medium transition-colors hover:text-primary cursor-pointer {isHomePage &&
+        class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
         activeSection === 'download'
-          ? 'text-primary'
+          ? 'text-brand'
           : 'text-muted-foreground'}"
       >
         Download
       </button>
       <a
         href={resolve("/wiki")}
-        class="text-sm font-medium transition-colors hover:text-primary {$page.url.pathname.includes(
+        class="text-sm font-medium transition-colors hover:text-brand {$page.url.pathname.includes(
           '/wiki',
         )
-          ? 'text-primary'
+          ? 'text-brand'
           : 'text-muted-foreground'}"
       >
         Wiki

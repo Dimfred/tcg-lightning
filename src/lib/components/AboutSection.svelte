@@ -34,19 +34,19 @@
       <FeatureCard
         icon={TrendingUp}
         title="EDHREC Synergies"
-        description="See what thousands of successful decks run with real-time <span class='text-foreground font-medium'>EDHREC</span> data. Synergy scores and inclusion rates help you find the perfect cards for your strategy."
+        description="See what thousands of successful decks run with real-time <span class='text-brand font-medium'>EDHREC</span> data. Synergy scores and inclusion rates help you find the perfect cards for your strategy."
         delay={100}
       />
       <FeatureCard
         icon={Zap}
         title="Automatic Combo Detection"
-        description="Powered by <span class='text-foreground font-medium'>Archidekt</span> Combo Spellbook — find combo lines already in your deck and discover what you're missing. Step-by-step explanations and add missing pieces with one click."
+        description="Powered by <span class='text-brand font-medium'>Archidekt</span> Combo Spellbook — find combo lines already in your deck and discover what you're missing. Step-by-step explanations and add missing pieces with one click."
         delay={200}
       />
       <FeatureCard
         icon={Library}
         title="Collection Management"
-        description="Track every card you own. Import your collection directly from <span class='text-foreground font-medium'>Manabox</span> and keep it up to date as you buy and trade."
+        description="Track every card you own. Import your collection directly from <span class='text-brand font-medium'>Manabox</span> and keep it up to date as you buy and trade."
         delay={300}
       />
       <FeatureCard

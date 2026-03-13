@@ -72,7 +72,7 @@
       <Card.Root class="max-w-md mx-auto text-center">
         <Card.Header>
           <div class="flex justify-center mb-4">
-            <Laptop class="size-16 text-primary" />
+            <Laptop class="size-16 text-brand" />
           </div>
           <Card.Title class="text-xl">Desktop App Only</Card.Title>
         </Card.Header>
@@ -95,18 +95,22 @@
       <!-- Windows -->
       <div use:reveal={0} class="h-full">
         <Card.Root
-          class="h-full hover:border-primary/50 transition-all duration-200"
+          class="h-full hover:border-brand/50 transition-all duration-200"
         >
           <Card.Header class="text-center">
             <div class="flex justify-center mb-4">
-              <Monitor class="size-12 text-primary" />
+              <Monitor class="size-12 text-brand" />
             </div>
             <Card.Title class="text-xl">Windows</Card.Title>
             <Badge variant="secondary">v{version}</Badge>
           </Card.Header>
           <Card.Content class="space-y-3">
             <div class="relative group">
-              <Button class="w-full" size="lg" href={windowsUrl}>
+              <Button
+                class="w-full bg-brand text-brand-foreground hover:bg-brand/90"
+                size="lg"
+                href={windowsUrl}
+              >
                 <Download class="size-4" />
                 Download .exe
               </Button>
@@ -131,18 +135,22 @@
       <!-- macOS -->
       <div use:reveal={100} class="h-full">
         <Card.Root
-          class="h-full hover:border-primary/50 transition-all duration-200"
+          class="h-full hover:border-brand/50 transition-all duration-200"
         >
           <Card.Header class="text-center">
             <div class="flex justify-center mb-4">
-              <Apple class="size-12 text-primary" />
+              <Apple class="size-12 text-brand" />
             </div>
             <Card.Title class="text-xl">macOS</Card.Title>
             <Badge variant="secondary">v{version}</Badge>
           </Card.Header>
           <Card.Content class="space-y-3">
             <div class="relative group">
-              <Button class="w-full" size="lg" href={macosUrl}>
+              <Button
+                class="w-full bg-brand text-brand-foreground hover:bg-brand/90"
+                size="lg"
+                href={macosUrl}
+              >
                 <Download class="size-4" />
                 Download .dmg
               </Button>
@@ -184,17 +192,21 @@
       <!-- Linux -->
       <div use:reveal={200} class="h-full">
         <Card.Root
-          class="h-full hover:border-primary/50 transition-all duration-200"
+          class="h-full hover:border-brand/50 transition-all duration-200"
         >
           <Card.Header class="text-center">
             <div class="flex justify-center mb-4">
-              <Server class="size-12 text-primary" />
+              <Server class="size-12 text-brand" />
             </div>
             <Card.Title class="text-xl">Linux</Card.Title>
             <Badge variant="secondary">v{version}</Badge>
           </Card.Header>
           <Card.Content class="space-y-3">
-            <Button class="w-full" size="lg" href={linuxDebUrl}>
+            <Button
+              class="w-full bg-brand text-brand-foreground hover:bg-brand/90"
+              size="lg"
+              href={linuxDebUrl}
+            >
               <Download class="size-4" />
               Download .deb
             </Button>
@@ -244,7 +256,7 @@
           href="https://github.com/dimfred/tcg-lightning/releases"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 mt-6 text-primary hover:underline"
+          class="inline-flex items-center gap-2 mt-6 text-brand hover:underline"
         >
           View releases on GitHub
           <ExternalLink class="size-4" />

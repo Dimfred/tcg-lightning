@@ -6,6 +6,8 @@
 
 :root {
   --radius: 0.625rem;
+  --brand: oklch(0.58 0.22 25);
+  --brand-foreground: oklch(0.985 0 0);
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -47,6 +49,8 @@
   --accent: oklch(0.274 0.006 286.033);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
+  --brand: oklch(0.58 0.22 25);
+  --brand-foreground: oklch(0.985 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.552 0.016 285.938);
@@ -77,6 +81,8 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -182,13 +188,13 @@
 
 /* Hero gradient background */
 .hero-gradient {
-  background: radial-gradient(ellipse 80% 50% at 50% -20%, oklch(0.3 0.02 285) 0%, transparent 80%);
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, oklch(0.25 0.08 25) 0%, transparent 80%);
 }
 
 /* Grid pattern background */
 .grid-pattern {
   background-image:
-    linear-gradient(to right, oklch(1 0 0 / 3%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(1 0 0 / 3%) 1px, transparent 1px);
+    linear-gradient(to right, oklch(0.58 0.05 25 / 4%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.58 0.05 25 / 4%) 1px, transparent 1px);
   background-size: 64px 64px;
 }

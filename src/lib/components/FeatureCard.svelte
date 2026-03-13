@@ -1,10 +1,10 @@
 <script lang="ts">
   import * as Card from "$lib/components/ui/card";
-  import type { Component } from "svelte";
+  import type { Component, SvelteComponent } from "svelte";
   import { reveal } from "$lib/reveal";
 
   type Props = {
-    icon: Component;
+    icon: Component<any> | typeof SvelteComponent<any>;
     title: string;
     description: string;
     delay?: number;
@@ -15,10 +15,10 @@
 
 <div use:reveal={delay} class="h-full">
   <Card.Root
-    class="group h-full hover:border-primary/50 transition-all duration-200 hover:shadow-lg hover:shadow-primary/5"
+    class="group h-full hover:border-brand/50 transition-all duration-200 hover:shadow-lg hover:shadow-brand/5"
   >
     <Card.Header>
-      <div class="mb-4 text-primary">
+      <div class="mb-4 text-brand">
         <Icon class="size-10" />
       </div>
       <Card.Title class="text-lg">{title}</Card.Title>

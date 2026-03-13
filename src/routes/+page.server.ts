@@ -1,13 +1,5 @@
 import type { PageServerLoad } from "./$types";
-
-type GitHubRelease = {
-  tag_name: string;
-  name: string;
-  body: string;
-  published_at: string;
-  html_url: string;
-  prerelease: boolean;
-};
+import type { GitHubRelease } from "$lib/github-api";
 
 type CachedData = {
   releases: GitHubRelease[];

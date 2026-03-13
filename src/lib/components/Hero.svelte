@@ -220,7 +220,7 @@
 <section id="hero">
   <!-- Hero intro — always fills the viewport -->
   <div
-    class="relative min-h-[calc(100dvh-3.5rem)] flex flex-col items-center justify-center py-20 md:py-32"
+    class="relative min-h-[calc(100dvh-3.5rem)] flex flex-col items-center justify-center py-20 md:py-32 hero-gradient"
   >
     <div class="container mx-auto px-4 text-center relative z-10">
       <div class="max-w-4xl mx-auto space-y-8">
@@ -239,7 +239,7 @@
         <h1
           class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-normal"
         >
-          A Modern <span class="text-foreground font-medium"
+          A Modern <span class="text-brand font-medium"
             >Magic: The Gathering</span
           > Desktop Deck Building App
         </h1>
@@ -255,7 +255,7 @@
         <div class="hidden md:flex justify-center pt-4">
           <Button
             size="lg"
-            class="min-w-[180px] text-base"
+            class="min-w-[180px] text-base bg-brand text-brand-foreground hover:bg-brand/90"
             onclick={scrollToDownload}
           >
             <Download class="size-5" />
@@ -377,7 +377,7 @@
                     onclick={() => (currentSlide = i)}
                     class="w-2 h-2 rounded-full transition-colors {i ===
                     currentSlide
-                      ? 'bg-primary'
+                      ? 'bg-brand'
                       : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'}"
                     aria-label="Go to slide {i + 1}"
                   ></button>
