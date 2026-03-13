@@ -39,7 +39,7 @@
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
-  class="min-h-screen flex flex-col font-sans grid-pattern relative"
+  class="min-h-dvh flex flex-col font-sans grid-pattern relative"
   style="font-family: 'Inter', system-ui, sans-serif;"
   onmousemove={handleMouseMove}
 >

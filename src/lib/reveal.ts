@@ -9,24 +9,35 @@ export function reveal(node: HTMLElement, delay: number = 0) {
   node.style.transform = "translateY(32px)";
   node.style.transition = `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`;
 
+  let revealed = false;
+  function show() {
+    if (revealed) return;
+    revealed = true;
+    node.style.opacity = "1";
+    node.style.transform = "translateY(0)";
+    observer.disconnect();
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
-          node.style.opacity = "1";
-          node.style.transform = "translateY(0)";
-          observer.unobserve(node);
+          show();
         }
       }
     },
-    { threshold: 0.15 },
+    { threshold: 0.1 },
   );
 
   observer.observe(node);
 
+  // Fallback: reveal after 2s in case IntersectionObserver doesn't fire (Safari)
+  const timeout = setTimeout(show, 2000);
+
   return {
     destroy() {
       observer.disconnect();
+      clearTimeout(timeout);
     },
   };
 }

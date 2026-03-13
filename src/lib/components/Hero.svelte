@@ -220,7 +220,7 @@
 <section id="hero">
   <!-- Hero intro — always fills the viewport -->
   <div
-    class="relative min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center py-20 md:py-32"
+    class="relative min-h-[calc(100dvh-3.5rem)] flex flex-col items-center justify-center py-20 md:py-32"
   >
     <div class="container mx-auto px-4 text-center relative z-10">
       <div class="max-w-4xl mx-auto space-y-8">
