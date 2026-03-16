@@ -107,6 +107,7 @@
   }
 
   // Mobile fullscreen functions
+  // svelte-ignore non_reactive_update
   let fullscreenContainer: HTMLDivElement | null = null;
 
   async function openMobileFullscreen(index: number) {

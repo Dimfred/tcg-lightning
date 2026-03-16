@@ -1,96 +1,107 @@
 #!/bin/bash
 
-# Script to convert PNGs to WebP and create a combined image showing
-# natural language to Scryfall syntax conversion
+# Script to convert PNGs to WebP in static/ directories
+# - screenshots: quality 80 (small UI images)
+# - blog images: quality adjusted to stay under MAX_SIZE_KB
 
 set -e
 
-# Check if ImageMagick is installed
 if ! command -v magick &> /dev/null; then
     echo "Error: ImageMagick is not installed. Please install it first."
     exit 1
 fi
 
-# Get the directory where the script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-WORK_DIR="${WORK_DIR:-$PROJECT_ROOT/static/screenshots}"
+STATIC_DIR="$PROJECT_ROOT/static"
 
-echo "Working in directory: $WORK_DIR"
+MAX_SIZE_KB=200
 
-# List of screenshot PNGs to convert and delete (excluding logos)
-SCREENSHOTS_TO_CONVERT=()
+# Convert a single PNG to WebP with a target max file size
+# Usage: convert_png <png_path> <quality>
+convert_png() {
+    local png="$1"
+    local quality="$2"
+    local webp="${png%.png}.webp"
 
-# Convert all PNGs to WebP in the screenshots directory
-echo "Converting PNGs to WebP..."
-for png in "$WORK_DIR"/*.png; do
-    if [ -f "$png" ]; then
-        webp="${png%.png}.webp"
-        magick "$png" -quality 80 "$webp"
-        echo "Converted: $(basename "$png") -> $(basename "$webp")"
-        # Add to deletion list (only screenshots in this directory, not logos elsewhere)
-        SCREENSHOTS_TO_CONVERT+=("$png")
+    magick "$png" -quality "$quality" "$webp"
+
+    local size_kb
+    size_kb=$(( $(wc -c < "$webp") / 1024 ))
+
+    # If over max size, reduce quality iteratively
+    while [ "$size_kb" -gt "$MAX_SIZE_KB" ] && [ "$quality" -gt 50 ]; do
+        quality=$((quality - 5))
+        magick "$png" -quality "$quality" "$webp"
+        size_kb=$(( $(wc -c < "$webp") / 1024 ))
+    done
+
+    echo "  $(basename "$png") -> $(basename "$webp") (${size_kb}KB, q=${quality})"
+    rm "$png"
+}
+
+# Convert screenshots at quality 80
+convert_dir() {
+    local dir="$1"
+    local quality="$2"
+    local found=false
+
+    for png in "$dir"/*.png; do
+        if [ -f "$png" ]; then
+            found=true
+            convert_png "$png" "$quality"
+        fi
+    done
+
+    if [ "$found" = false ]; then
+        echo "  No PNGs found, skipping."
+    fi
+}
+
+# --- Screenshots ---
+echo "=== Screenshots ==="
+convert_dir "$STATIC_DIR/screenshots" 80
+
+# --- Blog directories ---
+for blog_dir in "$STATIC_DIR"/blog-*/; do
+    if [ -d "$blog_dir" ]; then
+        echo "=== $(basename "$blog_dir") ==="
+        convert_dir "$blog_dir" 90
     fi
 done
 
-# Delete the converted screenshot PNGs
-if [ ${#SCREENSHOTS_TO_CONVERT[@]} -gt 0 ]; then
-    echo "Deleting converted screenshot PNGs..."
-    for png in "${SCREENSHOTS_TO_CONVERT[@]}"; do
-        rm "$png"
-        echo "Deleted: $(basename "$png")"
-    done
+# --- Combined image (screenshots specific) ---
+NATURAL_1="$STATIC_DIR/screenshots/natural-to-scryfall-1.webp"
+NATURAL_2="$STATIC_DIR/screenshots/natural-to-scryfall-2.webp"
+OUTPUT="$STATIC_DIR/screenshots/combined.webp"
+
+if [ ! -f "$NATURAL_1" ] && [ -f "$STATIC_DIR/screenshots/natural-to-scryfall-1.jpg" ]; then
+    NATURAL_1="$STATIC_DIR/screenshots/natural-to-scryfall-1.jpg"
+fi
+if [ ! -f "$NATURAL_2" ] && [ -f "$STATIC_DIR/screenshots/natural-to-scryfall-2.jpg" ]; then
+    NATURAL_2="$STATIC_DIR/screenshots/natural-to-scryfall-2.jpg"
 fi
 
-# Check if required images exist (try webp first, fall back to jpg for legacy)
-NATURAL_1="$WORK_DIR/natural-to-scryfall-1.webp"
-NATURAL_2="$WORK_DIR/natural-to-scryfall-2.webp"
-OUTPUT="$WORK_DIR/combined.webp"
+if [ -f "$NATURAL_1" ] && [ -f "$NATURAL_2" ]; then
+    echo "=== Combined image ==="
+    WIDTH=$(magick identify -format "%w" "$NATURAL_1")
+    ARROW_HEIGHT=100
 
-# Fall back to jpg if webp doesn't exist yet
-if [ ! -f "$NATURAL_1" ] && [ -f "$WORK_DIR/natural-to-scryfall-1.jpg" ]; then
-    NATURAL_1="$WORK_DIR/natural-to-scryfall-1.jpg"
+    magick -size ${WIDTH}x${ARROW_HEIGHT} xc:black \
+        -fill white -stroke white -strokewidth 3 \
+        -draw "line $((WIDTH/2)),20 $((WIDTH/2)),$((ARROW_HEIGHT-30))" \
+        -draw "line $((WIDTH/2)),$((ARROW_HEIGHT-30)) $((WIDTH/2-15)),$((ARROW_HEIGHT-45))" \
+        -draw "line $((WIDTH/2)),$((ARROW_HEIGHT-30)) $((WIDTH/2+15)),$((ARROW_HEIGHT-45))" \
+        /tmp/arrow.png
+
+    magick "$NATURAL_1" /tmp/arrow.png "$NATURAL_2" \
+        -background black \
+        -append \
+        -quality 80 \
+        "$OUTPUT"
+
+    rm /tmp/arrow.png
+    echo "  Combined image created: $(basename "$OUTPUT")"
 fi
-if [ ! -f "$NATURAL_2" ] && [ -f "$WORK_DIR/natural-to-scryfall-2.jpg" ]; then
-    NATURAL_2="$WORK_DIR/natural-to-scryfall-2.jpg"
-fi
 
-if [ ! -f "$NATURAL_1" ]; then
-    echo "Error: natural-to-scryfall-1.webp not found"
-    exit 1
-fi
-
-if [ ! -f "$NATURAL_2" ]; then
-    echo "Error: natural-to-scryfall-2.webp not found"
-    exit 1
-fi
-
-echo "Creating combined image with arrow..."
-
-# Get dimensions of the first image
-WIDTH=$(magick identify -format "%w" "$NATURAL_1")
-HEIGHT=$(magick identify -format "%h" "$NATURAL_1")
-
-# Arrow height (space between images)
-ARROW_HEIGHT=100
-
-# Create the arrow on black background
-magick -size ${WIDTH}x${ARROW_HEIGHT} xc:black \
-    -fill white -stroke white -strokewidth 3 \
-    -draw "line $((WIDTH/2)),20 $((WIDTH/2)),$((ARROW_HEIGHT-30))" \
-    -draw "line $((WIDTH/2)),$((ARROW_HEIGHT-30)) $((WIDTH/2-15)),$((ARROW_HEIGHT-45))" \
-    -draw "line $((WIDTH/2)),$((ARROW_HEIGHT-30)) $((WIDTH/2+15)),$((ARROW_HEIGHT-45))" \
-    /tmp/arrow.png
-
-# Combine images vertically: natural_1, arrow, natural_2
-magick "$NATURAL_1" /tmp/arrow.png "$NATURAL_2" \
-    -background black \
-    -append \
-    -quality 80 \
-    "$OUTPUT"
-
-# Clean up temporary arrow image
-rm /tmp/arrow.png
-
-echo "Combined image created: $OUTPUT"
 echo "Done!"

@@ -6,11 +6,10 @@
   import { throttle } from "$lib/utils";
   import { Menu, X } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
+  import DiscordIcon from "$lib/components/icons/DiscordIcon.svelte";
 
   let activeSection = $state("hero");
   let mobileMenuOpen = $state(false);
-  let scrolled = $state(false);
-
   const sections = ["hero", "about", "download"];
 
   // Check if we're on the home page
@@ -39,9 +38,6 @@
   }
 
   function updateActiveSection() {
-    // Always update scrolled state for proper header background
-    scrolled = window.scrollY > 20;
-
     if (!isHomePage) return;
 
     for (const id of sections) {
@@ -72,11 +68,7 @@
   });
 </script>
 
-<header
-  class="sticky top-0 z-50 h-14 border-b transition-all duration-200 {scrolled
-    ? 'bg-background border-border'
-    : 'bg-transparent border-transparent'}"
->
+<header class="sticky top-0 z-50 h-14 border-b bg-background border-border">
   <nav class="container mx-auto px-4 h-full flex items-center justify-between">
     <a href={resolve("/")} class="flex items-center">
       <img
@@ -126,6 +118,25 @@
           : 'text-muted-foreground'}"
       >
         Wiki
+      </a>
+      <a
+        href={resolve("/blog")}
+        class="text-sm font-medium transition-colors hover:text-brand {$page.url.pathname.includes(
+          '/blog',
+        )
+          ? 'text-brand'
+          : 'text-muted-foreground'}"
+      >
+        Blog
+      </a>
+      <a
+        href="https://discord.gg/vGpqEcxzRG"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 text-sm font-medium transition-colors text-muted-foreground hover:text-brand"
+      >
+        <DiscordIcon />
+        Discord
       </a>
     </div>
 
@@ -183,6 +194,23 @@
           onclick={() => (mobileMenuOpen = false)}
         >
           Wiki
+        </a>
+        <a
+          href={resolve("/blog")}
+          class="text-lg font-medium py-3 px-4 hover:bg-secondary rounded-md transition-colors"
+          onclick={() => (mobileMenuOpen = false)}
+        >
+          Blog
+        </a>
+        <a
+          href="https://discord.gg/vGpqEcxzRG"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-lg font-medium py-3 px-4 hover:bg-secondary rounded-md transition-colors text-muted-foreground hover:text-brand"
+          onclick={() => (mobileMenuOpen = false)}
+        >
+          <DiscordIcon class="size-5" />
+          Join Discord
         </a>
       </nav>
     </div>

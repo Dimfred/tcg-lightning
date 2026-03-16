@@ -4,7 +4,25 @@
 - releases are in releases/
 - I will use a Makefile to publish the releases, we track only the notes/ aka release notes
 - the folder name is tcg-lightning-public, but the repo is tcg-lightning.git
-- app is deployed in a container under <www.tcg-lightning.com> and tcg-lightning.com
+- app is deployed in a container under <www.tcg-lightning.com> and <tcg-lightning.com>
+- use the style of the page for newly generated components
+
+## Working with the repo
+
+- we have a `Makefile` to control everything
+- `./scripts/create_conversion_image.sh` to convert images
+- the homepage should load fast
+- blogs, especially images, should be loaded on-demand, to keep the loading time up
+
+## Packages
+
+- always install with `bun add`, never with a specific version
+
+## Blog Posts
+
+- target of the blogpost is to increase indexable content for search engines
+- always make sure that on mobile and desktop the content reads well
+- when adding new blogs, always call /seo-optimization when we are done, and validate that the newly generated content is optimized
 
 ## SEO Checkers
 
