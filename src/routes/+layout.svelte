@@ -59,4 +59,13 @@
       {@render children()}
     </main>
   {/key}
+  <footer class="border-t border-border pt-3 pb-3">
+    <div
+      class="container mx-auto px-4 flex justify-center text-sm text-muted-foreground"
+    >
+      <a href="/privacy" class="hover:text-brand transition-colors"
+        >Privacy Policy</a
+      >
+    </div>
+  </footer>
 </div>
