@@ -35,6 +35,15 @@
     return html;
   }
 
+  declare const plausible: (
+    event: string,
+    options?: { props: Record<string, string> },
+  ) => void;
+
+  function trackDownload(platform: string) {
+    plausible("Download", { props: { platform } });
+  }
+
   const baseUrl = "https://github.com/dimfred/tcg-lightning/releases/download";
 
   let latestRelease = $derived(releases?.[0]);
@@ -110,6 +119,7 @@
                 class="w-full bg-brand text-brand-foreground hover:bg-brand/90"
                 size="lg"
                 href={windowsUrl}
+                onclick={() => trackDownload("Windows")}
               >
                 <Download class="size-4" />
                 Download .exe
@@ -150,6 +160,7 @@
                 class="w-full bg-brand text-brand-foreground hover:bg-brand/90"
                 size="lg"
                 href={macosUrl}
+                onclick={() => trackDownload("macOS")}
               >
                 <Download class="size-4" />
                 Download .dmg
@@ -206,11 +217,17 @@
               class="w-full bg-brand text-brand-foreground hover:bg-brand/90"
               size="lg"
               href={linuxDebUrl}
+              onclick={() => trackDownload("Linux-deb")}
             >
               <Download class="size-4" />
               Download .deb
             </Button>
-            <Button class="w-full" variant="outline" href={linuxRpmUrl}>
+            <Button
+              class="w-full"
+              variant="outline"
+              href={linuxRpmUrl}
+              onclick={() => trackDownload("Linux-rpm")}
+            >
               <Download class="size-4" />
               Download .rpm
             </Button>
