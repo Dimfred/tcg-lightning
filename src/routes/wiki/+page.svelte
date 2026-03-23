@@ -1,5 +1,4 @@
 <script lang="ts">
-  import * as Card from "$lib/components/ui/card";
   import { Button } from "$lib/components/ui/button";
   import {
     Menu,
@@ -10,7 +9,6 @@
     Bot,
     Tag,
     FileInput,
-    FileOutput,
     Printer,
     Keyboard,
   } from "lucide-svelte";
@@ -138,151 +136,213 @@
   {/if}
 
   <!-- Main content -->
-  <main class="flex-1 px-6 py-8 md:px-12 md:py-16 max-w-4xl mx-auto">
-    <div class="markdown-content">
-      <h1>TCG Lightning Wiki</h1>
+  <main class="flex-1 py-16 px-4 md:px-12">
+    <article class="max-w-3xl mx-auto">
+      <!-- Header -->
+      <header class="mb-10">
+        <h1 class="text-4xl font-bold mt-2 mb-4">TCG Lightning Wiki</h1>
+        <p class="text-lg text-muted-foreground">
+          Complete guide to getting started and using all features of TCG
+          Lightning.
+        </p>
+      </header>
 
-      <h2 id="troubleshooting">Bug Reporting</h2>
-      <p>
-        TCG Lightning is under active development. If you encounter any issues,
-        please report them directly in the app by clicking the bug icon at the
-        top.
-      </p>
+      <!-- Content -->
+      <div class="prose prose-invert max-w-none space-y-8">
+        <section id="troubleshooting">
+          <h2 class="text-2xl font-semibold mb-4">Bug Reporting</h2>
+          <p class="text-muted-foreground leading-relaxed">
+            TCG Lightning is under active development. If you encounter any
+            issues, please report them directly in the app by clicking the bug
+            icon at the top.
+          </p>
+        </section>
 
-      <h2 id="getting-started">Getting Started</h2>
-      <p>
-        When you first launch TCG Lightning, the app will automatically download
-        the Scryfall card database. This process takes a few minutes. The app
-        will prompt you from time to time when database updates are available.
-      </p>
+        <section id="getting-started">
+          <h2 class="text-2xl font-semibold mb-4">Getting Started</h2>
+          <p class="text-muted-foreground leading-relaxed">
+            When you first launch TCG Lightning, the app will automatically
+            download the Scryfall card database. This process takes a few
+            minutes. The app will prompt you from time to time when database
+            updates are available.
+          </p>
+        </section>
 
-      <h2 id="card-search">Card Search</h2>
-      <p>
-        TCG Lightning uses <a
-          href="https://scryfall.com/docs/syntax"
-          target="_blank"
-          rel="noopener noreferrer">Scryfall search syntax</a
-        >. Press <code>Ctrl+Enter</code> in the search box to convert natural language
-        queries into Scryfall syntax using AI.
-      </p>
+        <section id="card-search">
+          <h2 class="text-2xl font-semibold mb-4">Card Search</h2>
+          <p class="text-muted-foreground leading-relaxed">
+            TCG Lightning uses <a
+              href="https://scryfall.com/docs/syntax"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand hover:underline">Scryfall search syntax</a
+            >. Press <code>Ctrl+Enter</code> in the search box to convert natural
+            language queries into Scryfall syntax using AI.
+          </p>
+        </section>
 
-      <h2 id="ai-assistant">AI Assistant</h2>
+        <section id="ai-assistant">
+          <h2 class="text-2xl font-semibold mb-4">AI Assistant</h2>
 
-      <h3 id="llm-setup">Setting Up LLM Providers</h3>
+          <h3 class="text-xl font-medium mt-6 mb-3">
+            Setting Up LLM Providers
+          </h3>
 
-      <h4>OpenRouter (Recommended)</h4>
-      <p>
-        <a
-          href="https://openrouter.ai/"
-          target="_blank"
-          rel="noopener noreferrer">OpenRouter</a
-        > offers 50 free requests per day.
-      </p>
-      <ol>
-        <li>
-          Sign up at <a
-            href="https://openrouter.ai/"
-            target="_blank"
-            rel="noopener noreferrer">openrouter.ai</a
+          <h4 class="text-lg font-medium mt-4 mb-2">
+            OpenRouter (Recommended)
+          </h4>
+          <p class="text-muted-foreground leading-relaxed">
+            <a
+              href="https://openrouter.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand hover:underline">OpenRouter</a
+            > offers 50 free requests per day.
+          </p>
+          <ol
+            class="text-muted-foreground leading-relaxed list-decimal list-inside space-y-1 mt-2"
           >
-        </li>
-        <li>Click your profile (top right) → API Keys tab</li>
-        <li>Generate an API key</li>
-        <li>In TCG Lightning: Settings → LLM Providers → Add to OpenRouter</li>
-        <li>Paste your API key and use model: <code>z.ai/glm-4.5-air</code></li>
-      </ol>
+            <li>
+              Sign up at <a
+                href="https://openrouter.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-brand hover:underline">openrouter.ai</a
+              >
+            </li>
+            <li>Click your profile (top right) → API Keys tab</li>
+            <li>Generate an API key</li>
+            <li>
+              In TCG Lightning: Settings → LLM Providers → Add to OpenRouter
+            </li>
+            <li>
+              Paste your API key and use model: <code>z.ai/glm-4.5-air</code>
+            </li>
+          </ol>
 
-      <h4>Google Gemini</h4>
-      <p>
-        <a
-          href="https://aistudio.google.com/apikey"
-          target="_blank"
-          rel="noopener noreferrer">Google Gemini</a
-        > offers a generous free API tier.
-      </p>
-      <ol>
-        <li>
-          Go to <a
-            href="https://aistudio.google.com/apikey"
-            target="_blank"
-            rel="noopener noreferrer">Google AI Studio</a
+          <h4 class="text-lg font-medium mt-6 mb-2">Google Gemini</h4>
+          <p class="text-muted-foreground leading-relaxed">
+            <a
+              href="https://aistudio.google.com/apikey"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-brand hover:underline">Google Gemini</a
+            > offers a generous free API tier.
+          </p>
+          <ol
+            class="text-muted-foreground leading-relaxed list-decimal list-inside space-y-1 mt-2"
           >
-        </li>
-        <li>Create an account and generate an API key</li>
-        <li>
-          In TCG Lightning: Settings → LLM Providers → Add to Google Gemini
-        </li>
-        <li>Paste your API key and save</li>
-      </ol>
+            <li>
+              Go to <a
+                href="https://aistudio.google.com/apikey"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-brand hover:underline">Google AI Studio</a
+              >
+            </li>
+            <li>Create an account and generate an API key</li>
+            <li>
+              In TCG Lightning: Settings → LLM Providers → Add to Google Gemini
+            </li>
+            <li>Paste your API key and save</li>
+          </ol>
 
-      <h3 id="api-key-storage">Secure API Key Storage</h3>
-      <p>
-        API keys are stored securely using Tauri plugin vault (Stronghold from
-        IOTA). They are never stored in plain text.
-      </p>
+          <h3 class="text-xl font-medium mt-8 mb-3" id="api-key-storage">
+            Secure API Key Storage
+          </h3>
+          <p class="text-muted-foreground leading-relaxed">
+            API keys are stored securely using Tauri plugin vault (Stronghold
+            from IOTA). They are never stored in plain text.
+          </p>
 
-      <h3 id="ai-features">AI Features</h3>
-      <p>
-        Open the AI assistant with <code>Ctrl+K</code>. You can use AI to tag
-        your creatures and get deck recommendations.
-      </p>
+          <h3 class="text-xl font-medium mt-8 mb-3" id="ai-features">
+            AI Features
+          </h3>
+          <p class="text-muted-foreground leading-relaxed">
+            Open the AI assistant with <code>Ctrl+K</code>. You can use AI to
+            tag your creatures and get deck recommendations.
+          </p>
+        </section>
 
-      <h2 id="card-tagging">Card Tagging</h2>
-      <p>
-        Local tags are normal tags. Global tags start with <code>!</code>.
-      </p>
+        <section id="card-tagging">
+          <h2 class="text-2xl font-semibold mb-4">Card Tagging</h2>
+          <p class="text-muted-foreground leading-relaxed">
+            Local tags are normal tags. Global tags start with <code>!</code>.
+          </p>
+        </section>
 
-      <h2 id="import-export">Import/Export</h2>
-      <p>
-        Import decks with <code>Ctrl+I</code>. Export decks with
-        <code>Ctrl+E</code>. Supports plain text and Cockatrice format.
-      </p>
+        <section id="import-export">
+          <h2 class="text-2xl font-semibold mb-4">Import/Export</h2>
+          <p class="text-muted-foreground leading-relaxed">
+            Import decks with <code>Ctrl+I</code>. Export decks with
+            <code>Ctrl+E</code>. Supports plain text and Cockatrice format.
+          </p>
+        </section>
 
-      <h2 id="proxy-printing">Proxy Printing</h2>
+        <section id="proxy-printing">
+          <h2 class="text-2xl font-semibold mb-4">Proxy Printing</h2>
 
-      <h3 id="generating-proxies">Generating Proxy PDFs</h3>
-      <p>
-        TCG Lightning can generate high-quality proxy PDFs for playtesting
-        purposes. The feature creates print-ready PDFs with proper card sizing
-        and layout.
-      </p>
-      <ol>
-        <li>Open a deck</li>
-        <li>Click "Generate Proxies"</li>
-        <li>Configure print settings</li>
-        <li>Generate and save the PDF</li>
-        <li>Print on standard cardstock or paper</li>
-      </ol>
+          <h3 class="text-xl font-medium mt-6 mb-3" id="generating-proxies">
+            Generating Proxy PDFs
+          </h3>
+          <p class="text-muted-foreground leading-relaxed">
+            TCG Lightning can generate high-quality proxy PDFs for playtesting
+            purposes. The feature creates print-ready PDFs with proper card
+            sizing and layout.
+          </p>
+          <ol
+            class="text-muted-foreground leading-relaxed list-decimal list-inside space-y-1 mt-2"
+          >
+            <li>Open a deck</li>
+            <li>Click "Generate Proxies"</li>
+            <li>Configure print settings</li>
+            <li>Generate and save the PDF</li>
+            <li>Print on standard cardstock or paper</li>
+          </ol>
 
-      <h3 id="print-settings">Print Settings</h3>
-      <ul>
-        <li>
-          <strong>Paper Size</strong> - Choose A4 (international) or Letter (US) size
-        </li>
-        <li>
-          <strong>Crop Marks</strong> - Add cutting guides for precise trimming
-        </li>
-        <li>
-          <strong>Black Corners</strong> - Fill corners to match real Magic cards
-        </li>
-        <li>
-          <strong>Card Backs</strong> - Include generic Magic backs for double-sided
-          printing
-        </li>
-        <li>
-          <strong>Exclude Basic Lands</strong> - Skip basic lands (use real ones instead)
-        </li>
-      </ul>
+          <h3 class="text-xl font-medium mt-8 mb-3" id="print-settings">
+            Print Settings
+          </h3>
+          <ul
+            class="text-muted-foreground leading-relaxed list-disc list-inside space-y-1"
+          >
+            <li>
+              <strong>Paper Size</strong> — Choose A4 (international) or Letter (US)
+              size
+            </li>
+            <li>
+              <strong>Crop Marks</strong> — Add cutting guides for precise trimming
+            </li>
+            <li>
+              <strong>Black Corners</strong> — Fill corners to match real Magic cards
+            </li>
+            <li>
+              <strong>Card Backs</strong> — Include generic Magic backs for double-sided
+              printing
+            </li>
+            <li>
+              <strong>Exclude Basic Lands</strong> — Skip basic lands (use real ones
+              instead)
+            </li>
+          </ul>
 
-      <h3 id="proxy-quality">Quality and Usage</h3>
-      <p>
-        Proxies generated by TCG Lightning use high-resolution card images from
-        Scryfall. They are intended for playtesting only and should not be used
-        in sanctioned tournaments.
-      </p>
+          <h3 class="text-xl font-medium mt-8 mb-3" id="proxy-quality">
+            Quality and Usage
+          </h3>
+          <p class="text-muted-foreground leading-relaxed">
+            Proxies generated by TCG Lightning use high-resolution card images
+            from Scryfall. They are intended for playtesting only and should not
+            be used in sanctioned tournaments.
+          </p>
+        </section>
 
-      <h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
-      <p>All keyboard shortcuts can be customized in Settings → Keybindings.</p>
-    </div>
+        <section id="keyboard-shortcuts">
+          <h2 class="text-2xl font-semibold mb-4">Keyboard Shortcuts</h2>
+          <p class="text-muted-foreground leading-relaxed">
+            All keyboard shortcuts can be customized in Settings → Keybindings.
+          </p>
+        </section>
+      </div>
+    </article>
   </main>
 </div>
