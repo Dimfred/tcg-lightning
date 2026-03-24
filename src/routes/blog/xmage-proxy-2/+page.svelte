@@ -4,7 +4,8 @@
 </script>
 
 <svelte:head>
-  <title>From Terminal to UI — XMage Integration Progress | TCG Lightning Blog</title
+  <title
+    >From Terminal to UI — XMage Integration Progress | TCG Lightning Blog</title
   >
   <meta
     name="description"
@@ -130,7 +131,8 @@
       height={900}
     />
     <figcaption class="text-sm text-muted-foreground mt-2 text-center">
-      Playing against myself — two TCG Lightning clients connected to the same XMage server.
+      Playing against myself — two TCG Lightning clients connected to the same
+      XMage server.
     </figcaption>
   </figure>
 
@@ -143,11 +145,10 @@
           target="_blank"
           rel="noopener noreferrer"
           class="text-brand hover:underline">XMage</a
-        > is a Java-based client/server that provides full Magic rules
-        enforcement and an automated stack. It's open source and has been around
-        for years. The goal of my integration is to let TCG Lightning connect to
-        XMage servers so you can play games with proper rules enforcement
-        directly from the app.
+        > is a Java-based client/server that provides full Magic rules enforcement
+        and an automated stack. It's open source and has been around for years. The
+        goal of my integration is to let TCG Lightning connect to XMage servers so
+        you can play games with proper rules enforcement directly from the app.
       </p>
     </section>
 
@@ -159,13 +160,14 @@
           target="_blank"
           rel="noopener noreferrer"
           class="text-brand hover:underline">tcg-lightning-xmage-bridge</a
-        > has come a long way since the last post. The proxy now handles login,
-        lobby interactions, table creation & joining, and full game sessions.
-        On the TypeScript side there's a callback API — you subscribe to
-        events like <code class="text-brand">onChatMessage</code>,
+        >
+        has come a long way since the last post. The proxy now handles login,
+        lobby interactions, table creation & joining, and full game sessions. On
+        the TypeScript side there's a callback API — you subscribe to events
+        like <code class="text-brand">onChatMessage</code>,
         <code class="text-brand">onGameUpdate</code>, or
-        <code class="text-brand">onSessionExpired</code> and get properly
-        typed payloads back.
+        <code class="text-brand">onSessionExpired</code> and get properly typed payloads
+        back.
       </p>
     </section>
 
@@ -192,12 +194,12 @@
     <section>
       <h2 class="text-2xl font-semibold mb-4">Protobuf for the Wire</h2>
       <p class="text-muted-foreground leading-relaxed">
-        I'm also introducing <strong>Protocol Buffers</strong> into the message
-        layer. Right now messages go over the wire as JSON, which works but is
-        verbose. Protobuf will shrink the transfer size and — just as
-        importantly — let me generate types for both the Java proxy and the
-        TypeScript client from a single schema. Less duplicated code, fewer
-        drift bugs, one source of truth for all message types.
+        I'm also introducing <strong>Protocol Buffers</strong> into the message layer.
+        Right now messages go over the wire as JSON, which works but is verbose. Protobuf
+        will shrink the transfer size and — just as importantly — let me generate
+        types for both the Java proxy and the TypeScript client from a single schema.
+        Less duplicated code, fewer drift bugs, one source of truth for all message
+        types.
       </p>
     </section>
 

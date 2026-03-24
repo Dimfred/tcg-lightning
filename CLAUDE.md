@@ -14,6 +14,14 @@
 - the homepage should load fast
 - blogs, especially images, should be loaded on-demand, to keep the loading time up
 
+## Images
+
+- originals go into `static-original/` (same subfolder structure as `static/`)
+- `./scripts/create_conversion_image.sh` converts from `static-original/` to webp and moves the result into `static/`
+- never put raw/original images directly into `static/`, always go through the conversion flow
+- this way we always keep originals and can re-tune compression/sizes later
+- when adding new images: place original in `static-original/`, run the conversion script, commit both
+
 ## Packages
 
 - always install with `bun add`, never with a specific version

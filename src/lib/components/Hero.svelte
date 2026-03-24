@@ -12,6 +12,7 @@
 
   type Screenshot = {
     src: string;
+    srcSm: string;
     caption: string;
   };
 
@@ -19,24 +20,29 @@
   const screenshots: Screenshot[] = [
     {
       src: asset("/screenshots/deck-builder.webp"),
+      srcSm: asset("/screenshots/deck-builder-sm.webp"),
       caption: "Build your deck — Scryfall search and Statistics",
     },
     {
       src: asset("/screenshots/edhrec.webp"),
+      srcSm: asset("/screenshots/edhrec-sm.webp"),
       caption:
         "EDHREC integration for Commander deck building — synergy scores and staples",
     },
     {
       src: asset("/screenshots/archidekt.webp"),
+      srcSm: asset("/screenshots/archidekt-sm.webp"),
       caption: "Automatic combo detection with Archidekt Combo Spellbook",
     },
     {
       src: asset("/screenshots/proxies.webp"),
+      srcSm: asset("/screenshots/proxies-sm.webp"),
       caption:
         "Proxy generator — you want to playtest your deck? No problem, generate a pdf, and print away",
     },
     {
       src: asset("/screenshots/card-search.webp"),
+      srcSm: asset("/screenshots/card-search-sm.webp"),
       caption: "Can't remember Scryfall syntax? Just use natural language!",
     },
   ];
@@ -232,6 +238,7 @@
             alt="TCG Lightning - Free Magic: The Gathering Deck Builder"
             width="956"
             height="236"
+            fetchpriority="high"
             class="h-16 md:h-24 w-auto drop-shadow-lg"
           />
         </div>
@@ -330,7 +337,9 @@
                   />
                 </button>
                 <img
-                  src={screenshot.src}
+                  src={screenshot.srcSm}
+                  srcset="{screenshot.srcSm} 640w, {screenshot.src} 1280w"
+                  sizes="100vw"
                   alt={screenshot.caption}
                   loading={i === 0 ? "eager" : "lazy"}
                   width="1920"
@@ -346,6 +355,8 @@
             <img
               src={screenshots[0].src}
               alt="TCG Lightning screenshot"
+              width="1920"
+              height="1080"
               class="w-full h-auto invisible"
               aria-hidden="true"
             />

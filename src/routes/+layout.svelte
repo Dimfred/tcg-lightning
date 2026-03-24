@@ -7,8 +7,14 @@
   import Navigation from "$lib/components/Navigation.svelte";
   import { page } from "$app/stores";
   import { fade } from "svelte/transition";
+  import { onMount } from "svelte";
 
   let { children } = $props();
+
+  let hasMounted = $state(false);
+  onMount(() => {
+    hasMounted = true;
+  });
 
   const GRID = 64;
   let highlightStyle = $state("");
@@ -53,8 +59,8 @@
   {#key $page.url.pathname}
     <main
       class="flex-1"
-      in:fade={{ duration: 200, delay: 200 }}
-      out:fade={{ duration: 200 }}
+      in:fade={{ duration: hasMounted ? 200 : 0, delay: hasMounted ? 200 : 0 }}
+      out:fade={{ duration: hasMounted ? 200 : 0 }}
     >
       {@render children()}
     </main>
