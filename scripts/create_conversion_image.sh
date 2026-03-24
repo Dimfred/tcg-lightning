@@ -19,7 +19,7 @@ DEST_DIR="$PROJECT_ROOT/static"
 
 MAX_SIZE_KB=200
 DESKTOP_WIDTH=1920
-MOBILE_WIDTH=640
+MOBILE_WIDTH=768
 
 # Convert a single image to WebP with a target max file size
 # Usage: convert_image <src_path> <dest_path> <quality> [max_width]
@@ -182,6 +182,7 @@ convert_logo() {
     fi
 
     convert_image "$src" "$DEST_DIR/logo_full.webp" 95
+    convert_image "$src" "$DEST_DIR/logo_full-sm.webp" 85 480
 }
 
 echo "=== Screenshots ==="

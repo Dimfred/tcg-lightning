@@ -36,7 +36,7 @@
 >
   <img
     {src}
-    srcset={srcSm ? `${srcSm} 640w, ${src} 1280w` : undefined}
+    srcset={srcSm ? `${srcSm} 768w, ${src} 1280w` : undefined}
     sizes={srcSm ? "(max-width: 768px) 100vw, 1280px" : undefined}
     {alt}
     {width}

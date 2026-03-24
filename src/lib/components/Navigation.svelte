@@ -10,7 +10,7 @@
 
   let activeSection = $state("hero");
   let mobileMenuOpen = $state(false);
-  const sections = ["hero", "about", "download"];
+  const sections = ["hero", "about", "faq", "download"];
 
   // Check if we're on the home page
   let isHomePage = $derived(
@@ -102,6 +102,15 @@
         About
       </button>
       <button
+        onclick={() => navigateToSection("faq")}
+        class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
+        activeSection === 'faq'
+          ? 'text-brand'
+          : 'text-muted-foreground'}"
+      >
+        FAQ
+      </button>
+      <button
         onclick={() => navigateToSection("download")}
         class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
         activeSection === 'download'
@@ -182,6 +191,12 @@
           class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
         >
           About
+        </button>
+        <button
+          onclick={() => navigateToSection("faq")}
+          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
+        >
+          FAQ
         </button>
         <button
           onclick={() => navigateToSection("download")}

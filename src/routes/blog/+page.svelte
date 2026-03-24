@@ -51,17 +51,20 @@
 </script>
 
 <svelte:head>
-  <title>Blog - TCG Lightning</title>
+  <title>MTG Deck Builder Blog - Updates & Dev Diary | TCG Lightning</title>
   <meta
     name="description"
-    content="My journey of building a Magic ecosystem."
+    content="Development updates, feature deep-dives, and the journey of building a Magic: The Gathering ecosystem — from deck building to online play via XMage."
   />
   <link rel="canonical" href="https://tcg-lightning.com/blog" />
 
-  <meta property="og:title" content="Blog - TCG Lightning" />
+  <meta
+    property="og:title"
+    content="MTG Deck Builder Blog - Updates & Dev Diary | TCG Lightning"
+  />
   <meta
     property="og:description"
-    content="My journey of building a Magic ecosystem."
+    content="Development updates, feature deep-dives, and the journey of building a Magic: The Gathering ecosystem — from deck building to online play via XMage."
   />
   <meta property="og:image" content="https://tcg-lightning.com/logo_og.webp" />
   <meta property="og:url" content="https://tcg-lightning.com/blog" />
@@ -123,8 +126,8 @@
           <div class="flex flex-col sm:flex-row p-4 gap-4">
             <img
               src={asset(post.image)}
-              srcset="{asset(post.imageSm)} 640w, {asset(post.image)} 1280w"
-              sizes="(max-width: 640px) 100vw, 320px"
+              srcset="{asset(post.imageSm)} 768w, {asset(post.image)} 1280w"
+              sizes="(max-width: 768px) 100vw, 320px"
               alt={post.title}
               class="w-full sm:w-80 h-48 sm:h-auto object-cover shrink-0 rounded-md"
               width={post.width}

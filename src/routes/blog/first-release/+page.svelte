@@ -4,10 +4,7 @@
 </script>
 
 <svelte:head>
-  <title
-    >TCG Lightning First Release - A New MTG Deck Builder Is Here | TCG
-    Lightning Blog</title
-  >
+  <title>First Release — A New Free MTG Deck Builder | TCG Lightning</title>
   <meta
     name="description"
     content="Introducing TCG Lightning v0.1.33 - a fast, modern Magic: The Gathering deck builder with EDHREC integration, AI chat, combo detection, collection management, and proxy printing."
@@ -21,7 +18,7 @@
   <!-- Open Graph -->
   <meta
     property="og:title"
-    content="TCG Lightning First Release - A New MTG Deck Builder Is Here"
+    content="First Release — A New Free MTG Deck Builder | TCG Lightning"
   />
   <meta
     property="og:description"
@@ -41,7 +38,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta
     name="twitter:title"
-    content="TCG Lightning First Release - A New MTG Deck Builder Is Here"
+    content="First Release — A New Free MTG Deck Builder | TCG Lightning"
   />
   <meta
     name="twitter:description"
@@ -56,21 +53,25 @@
   {@html `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: "TCG Lightning First Release - A New MTG Deck Builder Is Here",
+    headline: "First Release — A New Free MTG Deck Builder | TCG Lightning",
     description:
       "Introducing TCG Lightning v0.1.33 - a fast, modern Magic: The Gathering deck builder with EDHREC integration, AI chat, combo detection, collection management, and proxy printing.",
     image: "https://tcg-lightning.com/blog-first-release/deck-overview.webp",
     datePublished: "2026-03-11",
     dateModified: "2026-03-11",
     author: {
-      "@type": "Organization",
-      name: "TCG Lightning",
-      url: "https://tcg-lightning.com",
+      "@type": "Person",
+      name: "Dimfred",
+      url: "https://github.com/dimfred",
     },
     publisher: {
       "@type": "Organization",
       name: "TCG Lightning",
       url: "https://tcg-lightning.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://tcg-lightning.com/logo_search.webp",
+      },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -165,7 +166,9 @@
     <figure class="my-8">
       <Lightbox
         src={asset("/blog-first-release/cockatrice-inspired-interface.webp")}
-        srcSm={asset("/blog-first-release/cockatrice-inspired-interface-sm.webp")}
+        srcSm={asset(
+          "/blog-first-release/cockatrice-inspired-interface-sm.webp",
+        )}
         alt="TCG Lightning deck builder interface inspired by Cockatrice"
         class="w-full"
         width={1920}
@@ -247,4 +250,20 @@
       </p>
     </section>
   </div>
+
+  <nav class="mt-16 pt-8 border-t border-border">
+    <h2 class="text-xl font-semibold mb-4">Related Posts</h2>
+    <ul class="space-y-2 text-muted-foreground">
+      <li>
+        <a href="/blog/performance-tracking" class="text-brand hover:underline"
+          >Performance Tracking in TCG Lightning</a
+        >
+      </li>
+      <li>
+        <a href="/blog/xmage-proxy-1" class="text-brand hover:underline"
+          >Playing Magic in the Terminal — XMage Proxy</a
+        >
+      </li>
+    </ul>
+  </nav>
 </article>

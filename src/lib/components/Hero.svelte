@@ -247,6 +247,10 @@
         <div class="flex justify-center mb-6">
           <img
             src={asset("/logo_full.webp")}
+            srcset="{asset('/logo_full-sm.webp')} 480w, {asset(
+              '/logo_full.webp',
+            )} 956w"
+            sizes="(max-width: 768px) 480px, 956px"
             alt="TCG Lightning - Free Magic: The Gathering Deck Builder"
             width="956"
             height="236"
@@ -264,11 +268,15 @@
           > Desktop Deck Building App
         </h1>
         <p
-          class="text-base md:text-lg text-muted-foreground/80 max-w-xl mx-auto mt-2"
+          class="text-base md:text-lg text-muted-foreground/80 max-w-2xl mx-auto mt-2"
         >
-          With offline card search, EDHREC integration, Archidekt Combo
-          Spellbook integration, Collection management and sharing that with
-          friends
+          TCG Lightning is a free desktop app for Windows, macOS, and Linux that
+          lets you build Magic: The Gathering decks with offline Scryfall card
+          search, real-time EDHREC synergy scores, automatic combo detection via
+          Archidekt Combo Spellbook, and AI-powered card suggestions through
+          OpenAI, Anthropic, or Ollama. Import your collection from Manabox,
+          generate proxy PDFs for playtesting, and track your performance across
+          matches — all in one app.
         </p>
 
         <!-- CTA Button (desktop only) -->
@@ -350,8 +358,8 @@
                 </button>
                 <img
                   src={screenshot.srcSm}
-                  srcset="{screenshot.srcSm} 640w, {screenshot.src} 1280w"
-                  sizes="100vw"
+                  srcset="{screenshot.srcSm} 768w, {screenshot.src} 1280w"
+                  sizes={[1, 4].includes(i) ? "540px" : "100vw"}
                   alt={screenshot.caption}
                   loading={i === 0 ? "eager" : "lazy"}
                   width={screenshot.width}

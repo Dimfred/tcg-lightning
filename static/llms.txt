@@ -1,0 +1,31 @@
+# TCG Lightning
+
+> Free Magic: The Gathering deck builder for Windows, macOS, and Linux
+
+## About
+TCG Lightning is a desktop application for building Magic: The Gathering decks. It supports all major formats and aims to build a complete MTG ecosystem — from deck building to online play.
+
+## Key Pages
+- Homepage: https://tcg-lightning.com/
+- Blog: https://tcg-lightning.com/blog
+- Wiki: https://tcg-lightning.com/wiki
+- Download: https://github.com/dimfred/tcg-lightning/releases/latest
+
+## Features
+- Offline Scryfall card search across 90,000+ cards
+- EDHREC synergy scores, staples and inclusion rates
+- Automatic combo detection via Archidekt Combo Spellbook
+- AI deck assistant (OpenAI, Anthropic, Ollama)
+- Collection management with Manabox import
+- Proxy PDF generation for playtesting
+- Performance tracking (win/loss/draw stats per deck)
+- XMage integration for online play (in development)
+
+## Current Development
+Building an XMage bridge to enable playing Magic directly from TCG Lightning. Blog posts document the progress from terminal prototype to full UI integration.
+
+## Blog
+- XMage Integration Progress: https://tcg-lightning.com/blog/xmage-proxy-2
+- Playing Magic in the Terminal: https://tcg-lightning.com/blog/xmage-proxy-1
+- Performance Tracking: https://tcg-lightning.com/blog/performance-tracking
+- First Release: https://tcg-lightning.com/blog/first-release

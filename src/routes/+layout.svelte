@@ -65,10 +65,24 @@
       {@render children()}
     </main>
   {/key}
-  <footer class="border-t border-border pt-3 pb-3">
+  <footer class="border-t border-border py-6">
     <div
-      class="container mx-auto px-4 flex justify-center text-sm text-muted-foreground"
+      class="container mx-auto px-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
     >
+      <a href="/blog" class="hover:text-brand transition-colors">Blog</a>
+      <a href="/wiki" class="hover:text-brand transition-colors">Wiki</a>
+      <a
+        href="https://github.com/dimfred/tcg-lightning"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-brand transition-colors">GitHub</a
+      >
+      <a
+        href="https://discord.gg/vGpqEcxzRG"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-brand transition-colors">Discord</a
+      >
       <a href="/privacy" class="hover:text-brand transition-colors"
         >Privacy Policy</a
       >

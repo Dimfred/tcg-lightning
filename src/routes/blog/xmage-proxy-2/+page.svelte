@@ -59,14 +59,18 @@
     datePublished: "2026-03-24",
     dateModified: "2026-03-24",
     author: {
-      "@type": "Organization",
-      name: "TCG Lightning",
-      url: "https://tcg-lightning.com",
+      "@type": "Person",
+      name: "Dimfred",
+      url: "https://github.com/dimfred",
     },
     publisher: {
       "@type": "Organization",
       name: "TCG Lightning",
       url: "https://tcg-lightning.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://tcg-lightning.com/logo_search.webp",
+      },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -163,10 +167,10 @@
           rel="noopener noreferrer"
           class="text-brand hover:underline">tcg-lightning-xmage-bridge</a
         >
-        has come a long way since the last post. The proxy now handles login,
-        lobby interactions, table creation & joining, and full game sessions. On
-        the TypeScript side there's a callback API — you subscribe to events
-        like <code class="text-brand">onChatMessage</code>,
+        has come a long way since the last post. The proxy now handles login, lobby
+        interactions, table creation & joining, and full game sessions. On the TypeScript
+        side there's a callback API — you subscribe to events like
+        <code class="text-brand">onChatMessage</code>,
         <code class="text-brand">onGameUpdate</code>, or
         <code class="text-brand">onSessionExpired</code> and get properly typed payloads
         back.
@@ -236,4 +240,20 @@
       </p>
     </section>
   </div>
+
+  <nav class="mt-16 pt-8 border-t border-border">
+    <h2 class="text-xl font-semibold mb-4">Related Posts</h2>
+    <ul class="space-y-2 text-muted-foreground">
+      <li>
+        <a href="/blog/xmage-proxy-1" class="text-brand hover:underline"
+          >Playing Magic in the Terminal — XMage Proxy</a
+        >
+      </li>
+      <li>
+        <a href="/blog/first-release" class="text-brand hover:underline"
+          >TCG Lightning First Release</a
+        >
+      </li>
+    </ul>
+  </nav>
 </article>

@@ -55,14 +55,18 @@
     datePublished: "2026-03-13",
     dateModified: "2026-03-13",
     author: {
-      "@type": "Organization",
-      name: "TCG Lightning",
-      url: "https://tcg-lightning.com",
+      "@type": "Person",
+      name: "Dimfred",
+      url: "https://github.com/dimfred",
     },
     publisher: {
       "@type": "Organization",
       name: "TCG Lightning",
       url: "https://tcg-lightning.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://tcg-lightning.com/logo_search.webp",
+      },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -166,4 +170,20 @@
       </p>
     </section>
   </div>
+
+  <nav class="mt-16 pt-8 border-t border-border">
+    <h2 class="text-xl font-semibold mb-4">Related Posts</h2>
+    <ul class="space-y-2 text-muted-foreground">
+      <li>
+        <a href="/blog/first-release" class="text-brand hover:underline"
+          >TCG Lightning First Release</a
+        >
+      </li>
+      <li>
+        <a href="/blog/xmage-proxy-2" class="text-brand hover:underline"
+          >From Terminal to UI — XMage Integration Progress</a
+        >
+      </li>
+    </ul>
+  </nav>
 </article>
