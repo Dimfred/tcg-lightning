@@ -125,10 +125,11 @@
   <figure class="mb-12">
     <Lightbox
       src={asset("/blog-xmage-proxy-2/current-state-ui.webp")}
+      srcSm={asset("/blog-xmage-proxy-2/current-state-ui-sm.webp")}
       alt="Two TCG Lightning windows side by side playing a game of Magic against each other via XMage, with cards on the stack and mana payment prompts"
       class="w-full"
-      width={1500}
-      height={900}
+      width={1920}
+      height={1025}
       eager
     />
     <figcaption class="text-sm text-muted-foreground mt-2 text-center">

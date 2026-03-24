@@ -18,6 +18,7 @@ SRC_DIR="$PROJECT_ROOT/static-original"
 DEST_DIR="$PROJECT_ROOT/static"
 
 MAX_SIZE_KB=200
+DESKTOP_WIDTH=1920
 MOBILE_WIDTH=640
 
 # Convert a single image to WebP with a target max file size
@@ -151,14 +152,19 @@ convert_blog() {
 
         echo "=== $dirname ==="
         local found=false
-        for img in "$src_blog_dir"/*.{png,jpg,jpeg}; do
+        for img in "$src_blog_dir"/*.{png,jpg,jpeg,webp}; do
             if [ ! -f "$img" ]; then
                 continue
             fi
             found=true
             local basename="${img##*/}"
             local name="${basename%.*}"
-            convert_image "$img" "$dest_blog_dir/${name}.webp" 90
+
+            # Full size (capped at 1920w)
+            convert_image "$img" "$dest_blog_dir/${name}.webp" 90 "$DESKTOP_WIDTH"
+
+            # Mobile variant (640w)
+            convert_image "$img" "$dest_blog_dir/${name}-sm.webp" 80 "$MOBILE_WIDTH"
         done
 
         if [ "$found" = false ]; then
@@ -175,7 +181,7 @@ convert_logo() {
         return
     fi
 
-    convert_image "$src" "$DEST_DIR/logo_full.webp" 75
+    convert_image "$src" "$DEST_DIR/logo_full.webp" 95
 }
 
 echo "=== Screenshots ==="

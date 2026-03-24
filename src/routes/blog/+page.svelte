@@ -10,6 +10,9 @@
         "Playing actual games of Magic in TCG Lightning via XMage — with protobuf, fine-grained events, and a TypeScript client.",
       date: "2026-03-24",
       image: "/blog-xmage-proxy-2/current-state-ui.webp",
+      imageSm: "/blog-xmage-proxy-2/current-state-ui-sm.webp",
+      width: 1920,
+      height: 1025,
     },
     {
       slug: "xmage-proxy-1",
@@ -18,6 +21,9 @@
         "I started building a bridge between TCG Lightning and XMage — by Sunday I was playing my first round of Magic in the terminal.",
       date: "2026-03-16",
       image: "/blog-xmage-proxy-1/terminal-magic.webp",
+      imageSm: "/blog-xmage-proxy-1/terminal-magic-sm.webp",
+      width: 1920,
+      height: 985,
     },
     {
       slug: "performance-tracking",
@@ -26,6 +32,9 @@
         "Someone on Reddit asked about performance tracking. I thought it's a good idea, so I added it — log matches, events, and track your win/loss/draw stats.",
       date: "2026-03-13",
       image: "/blog-performance-tracking/performance-ui.webp",
+      imageSm: "/blog-performance-tracking/performance-ui-sm.webp",
+      width: 1920,
+      height: 1038,
     },
     {
       slug: "first-release",
@@ -34,6 +43,9 @@
         "Introducing TCG Lightning v0.1.33 — a fast, modern desktop app for building Magic: The Gathering decks with EDHREC integration, AI chat, combo detection, and more.",
       date: "2026-03-11",
       image: "/blog-first-release/deck-overview.webp",
+      imageSm: "/blog-first-release/deck-overview-sm.webp",
+      width: 1920,
+      height: 1043,
     },
   ];
 </script>
@@ -111,10 +123,12 @@
           <div class="flex flex-col sm:flex-row p-4 gap-4">
             <img
               src={asset(post.image)}
+              srcset="{asset(post.imageSm)} 640w, {asset(post.image)} 1280w"
+              sizes="(max-width: 640px) 100vw, 320px"
               alt={post.title}
               class="w-full sm:w-80 h-48 sm:h-auto object-cover shrink-0 rounded-md"
-              width="1500"
-              height="900"
+              width={post.width}
+              height={post.height}
               loading="lazy"
             />
             <div class="flex flex-col justify-center">

@@ -14,6 +14,8 @@
     src: string;
     srcSm: string;
     caption: string;
+    width: number;
+    height: number;
   };
 
   // Screenshots carousel
@@ -22,28 +24,38 @@
       src: asset("/screenshots/deck-builder.webp"),
       srcSm: asset("/screenshots/deck-builder-sm.webp"),
       caption: "Build your deck — Scryfall search and Statistics",
+      width: 1920,
+      height: 1080,
     },
     {
       src: asset("/screenshots/edhrec.webp"),
       srcSm: asset("/screenshots/edhrec-sm.webp"),
       caption:
         "EDHREC integration for Commander deck building — synergy scores and staples",
+      width: 980,
+      height: 690,
     },
     {
       src: asset("/screenshots/archidekt.webp"),
       srcSm: asset("/screenshots/archidekt-sm.webp"),
       caption: "Automatic combo detection with Archidekt Combo Spellbook",
+      width: 977,
+      height: 463,
     },
     {
       src: asset("/screenshots/proxies.webp"),
       srcSm: asset("/screenshots/proxies-sm.webp"),
       caption:
         "Proxy generator — you want to playtest your deck? No problem, generate a pdf, and print away",
+      width: 1623,
+      height: 910,
     },
     {
       src: asset("/screenshots/card-search.webp"),
       srcSm: asset("/screenshots/card-search-sm.webp"),
       caption: "Can't remember Scryfall syntax? Just use natural language!",
+      width: 418,
+      height: 316,
     },
   ];
 
@@ -303,7 +315,7 @@
         {:else}
           <!-- Carousel Container -->
           <div
-            class="relative"
+            class="relative aspect-video"
             role="region"
             aria-label="Screenshot carousel"
             ontouchstart={handleTouchStart}
@@ -328,8 +340,8 @@
                     src={screenshot.src}
                     alt={screenshot.caption}
                     loading={i === 0 ? "eager" : "lazy"}
-                    width="1920"
-                    height="1080"
+                    width={screenshot.width}
+                    height={screenshot.height}
                     class={[1, 4].includes(i)
                       ? "h-full w-auto max-w-full object-contain"
                       : "w-full h-auto"}
@@ -342,8 +354,8 @@
                   sizes="100vw"
                   alt={screenshot.caption}
                   loading={i === 0 ? "eager" : "lazy"}
-                  width="1920"
-                  height="1080"
+                  width={screenshot.width}
+                  height={screenshot.height}
                   class="md:hidden {[1, 4].includes(i)
                     ? 'h-full w-auto max-w-full object-contain'
                     : 'w-full h-auto'}"
@@ -351,15 +363,6 @@
                 />
               </div>
             {/each}
-            <!-- Spacer to maintain aspect ratio -->
-            <img
-              src={screenshots[0].src}
-              alt="TCG Lightning screenshot"
-              width="1920"
-              height="1080"
-              class="w-full h-auto invisible"
-              aria-hidden="true"
-            />
 
             <!-- Navigation Arrows -->
             {#if screenshots.length > 1}
@@ -460,6 +463,8 @@
         <img
           src={screenshots[lightboxSlide].src}
           alt={screenshots[lightboxSlide].caption}
+          width={screenshots[lightboxSlide].width}
+          height={screenshots[lightboxSlide].height}
           class="max-w-[90vw] max-h-[85vh] object-contain"
         />
         <!-- Caption -->
@@ -508,6 +513,8 @@
         <img
           src={screenshots[mobileFullscreenSlide].src}
           alt={screenshots[mobileFullscreenSlide].caption}
+          width={screenshots[mobileFullscreenSlide].width}
+          height={screenshots[mobileFullscreenSlide].height}
           class="min-w-full h-auto"
         />
       </div>

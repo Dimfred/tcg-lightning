@@ -3,6 +3,7 @@
 
   let {
     src,
+    srcSm = "",
     alt,
     class: className = "",
     width,
@@ -10,6 +11,7 @@
     eager = false,
   }: {
     src: string;
+    srcSm?: string;
     alt: string;
     class?: string;
     width?: number;
@@ -34,6 +36,8 @@
 >
   <img
     {src}
+    srcset={srcSm ? `${srcSm} 640w, ${src} 1280w` : undefined}
+    sizes={srcSm ? "(max-width: 768px) 100vw, 1280px" : undefined}
     {alt}
     {width}
     {height}

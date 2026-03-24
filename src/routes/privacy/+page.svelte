@@ -6,6 +6,23 @@
   />
   <link rel="canonical" href="https://tcg-lightning.com/privacy" />
 
+  <meta property="og:title" content="Privacy Policy - TCG Lightning" />
+  <meta
+    property="og:description"
+    content="Privacy policy for TCG Lightning. We respect your privacy and use only anonymous, cookieless analytics."
+  />
+  <meta property="og:image" content="https://tcg-lightning.com/logo_og.webp" />
+  <meta property="og:url" content="https://tcg-lightning.com/privacy" />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Privacy Policy - TCG Lightning" />
+  <meta
+    name="twitter:description"
+    content="Privacy policy for TCG Lightning. We respect your privacy and use only anonymous, cookieless analytics."
+  />
+  <meta name="twitter:image" content="https://tcg-lightning.com/logo_og.webp" />
+
   {@html '<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tcg-lightning.com/"},{"@type":"ListItem","position":2,"name":"Privacy Policy","item":"https://tcg-lightning.com/privacy"}]}</script>'}
 </svelte:head>
 

@@ -122,10 +122,11 @@
   <figure class="mb-12">
     <Lightbox
       src={asset("/blog-performance-tracking/performance-ui.webp")}
+      srcSm={asset("/blog-performance-tracking/performance-ui-sm.webp")}
       alt="TCG Lightning performance tracking UI showing match statistics with win/loss/draw tracking"
       class="w-full"
-      width={1500}
-      height={900}
+      width={1920}
+      height={1038}
       eager
     />
     <figcaption class="text-sm text-muted-foreground mt-2 text-center">

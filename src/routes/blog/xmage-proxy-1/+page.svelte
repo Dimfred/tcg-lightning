@@ -122,10 +122,11 @@
   <figure class="mb-12">
     <Lightbox
       src={asset("/blog-xmage-proxy-1/terminal-magic.webp")}
+      srcSm={asset("/blog-xmage-proxy-1/terminal-magic-sm.webp")}
       alt="Playing a round of Magic: The Gathering through the terminal via the XMage proxy"
       class="w-full"
-      width={1500}
-      height={900}
+      width={1920}
+      height={985}
       eager
     />
     <figcaption class="text-sm text-muted-foreground mt-2 text-center">

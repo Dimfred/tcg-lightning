@@ -15,8 +15,24 @@ export const handle: Handle = async ({ event, resolve }) => {
       "public, max-age=31536000, immutable",
     );
   } else if (isStatic) {
-    response.headers.set("Cache-Control", "public, max-age=86400");
+    response.headers.set("Cache-Control", "public, max-age=604800");
   }
+
+  // Security headers
+  response.headers.set(
+    "Strict-Transport-Security",
+    "max-age=31536000; includeSubDomains",
+  );
+  response.headers.set("X-Frame-Options", "SAMEORIGIN");
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set(
+    "Referrer-Policy",
+    "strict-origin-when-cross-origin",
+  );
+  response.headers.set(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=()",
+  );
 
   return response;
 };

@@ -136,10 +136,11 @@
   <figure class="mb-12">
     <Lightbox
       src={asset("/blog-first-release/deck-overview.webp")}
+      srcSm={asset("/blog-first-release/deck-overview-sm.webp")}
       alt="TCG Lightning deck overview showing Commander and Pauper decks with card previews"
       class="w-full"
-      width={1500}
-      height={900}
+      width={1920}
+      height={1043}
       eager
     />
     <figcaption class="text-sm text-muted-foreground mt-2 text-center">
@@ -164,10 +165,11 @@
     <figure class="my-8">
       <Lightbox
         src={asset("/blog-first-release/cockatrice-inspired-interface.webp")}
+        srcSm={asset("/blog-first-release/cockatrice-inspired-interface-sm.webp")}
         alt="TCG Lightning deck builder interface inspired by Cockatrice"
         class="w-full"
-        width={1500}
-        height={900}
+        width={1920}
+        height={1050}
       />
       <figcaption class="text-sm text-muted-foreground mt-2 text-center">
         Cockatrice inspired user interface.
