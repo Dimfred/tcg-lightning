@@ -25,7 +25,8 @@
 - when adding new blogs, always call /seo-optimization when we are done, and validate that the newly generated content is optimized
 - `../tcg-lightning-xmage-bridge/` you have the bridge, you can check there for recent commits
 
-## SEO Checkers
+## SEO
 
+- when adding a new route, always add it to `static/sitemap.xml`
 - <https://www.seobility.net/en/seocheck/check/?url=https%3A%2F%2Ftcg-lightning.com%2F&mode=standard>
 - <https://www.screamingfrog.co.uk/seo-spider/>
