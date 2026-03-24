@@ -23,6 +23,7 @@
 - target of the blogpost is to increase indexable content for search engines
 - always make sure that on mobile and desktop the content reads well
 - when adding new blogs, always call /seo-optimization when we are done, and validate that the newly generated content is optimized
+- `../tcg-lightning-xmage-bridge/` you have the bridge, you can check there for recent commits
 
 ## SEO Checkers
 

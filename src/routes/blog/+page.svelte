@@ -4,6 +4,14 @@
 
   const posts = [
     {
+      slug: "xmage-proxy-2",
+      title: "From Terminal to UI — XMage Integration Progress",
+      description:
+        "Playing actual games of Magic in TCG Lightning via XMage — with protobuf, fine-grained events, and a TypeScript client.",
+      date: "2026-03-24",
+      image: "/blog-xmage-proxy-2/current-state-ui.webp",
+    },
+    {
       slug: "xmage-proxy-1",
       title: "Playing Magic in the Terminal",
       description:
