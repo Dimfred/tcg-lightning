@@ -34,7 +34,24 @@
   />
   <meta name="twitter:image" content="https://tcg-lightning.com/logo_og.webp" />
 
-  {@html '<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"TCG Lightning","applicationCategory":"GameApplication","operatingSystem":"Windows, macOS, Linux","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free Magic: The Gathering deck builder with AI assistance, EDHREC synergies, combo detection, and offline Scryfall card search.","url":"https://tcg-lightning.com/","downloadUrl":"https://github.com/dimfred/tcg-lightning/releases/latest"}</script>'}
+  {@html `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "TCG Lightning",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free Magic: The Gathering deck builder with AI assistance, EDHREC synergies, combo detection, and offline Scryfall card search.",
+    "url": "https://tcg-lightning.com/",
+    "downloadUrl": "https://github.com/dimfred/tcg-lightning/releases/latest",
+    "softwareVersion": data.version,
+    "screenshot": "https://tcg-lightning.com/screenshots/overview.webp",
+    "author": {
+      "@type": "Person",
+      "name": "Dimfred",
+      "url": "https://github.com/dimfred"
+    }
+  })}</script>`}
   {@html '<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tcg-lightning.com/"}]}</script>'}
 
   {@html `<script type="application/ld+json">${JSON.stringify({

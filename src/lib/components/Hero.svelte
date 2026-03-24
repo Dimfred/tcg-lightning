@@ -21,8 +21,8 @@
   // Screenshots carousel
   const screenshots: Screenshot[] = [
     {
-      src: asset("/screenshots/deck-builder.webp"),
-      srcSm: asset("/screenshots/deck-builder-sm.webp"),
+      src: asset("/screenshots/overview.webp"),
+      srcSm: asset("/screenshots/overview-sm.webp"),
       caption: "Build your deck — Scryfall search and Statistics",
       width: 1920,
       height: 1080,
@@ -51,8 +51,8 @@
       height: 910,
     },
     {
-      src: asset("/screenshots/card-search.webp"),
-      srcSm: asset("/screenshots/card-search-sm.webp"),
+      src: asset("/screenshots/combined.webp"),
+      srcSm: asset("/screenshots/combined-sm.webp"),
       caption: "Can't remember Scryfall syntax? Just use natural language!",
       width: 418,
       height: 316,

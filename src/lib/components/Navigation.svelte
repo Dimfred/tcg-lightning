@@ -17,7 +17,8 @@
     $page.url.pathname === resolve("/") || $page.url.pathname === "/",
   );
 
-  async function navigateToSection(id: string) {
+  async function navigateToSection(e: MouseEvent, id: string) {
+    e.preventDefault();
     mobileMenuOpen = false;
     if (isHomePage) {
       const element = document.getElementById(id);
@@ -72,53 +73,56 @@
   <nav class="container mx-auto px-4 h-full flex items-center justify-between">
     <a href={resolve("/")} class="flex items-center">
       <img
-        src={asset("/logo_full.webp")}
+        src={asset("/logo_full-sm.webp")}
         alt="TCG Lightning"
-        width="956"
-        height="236"
-        fetchpriority="high"
+        width="480"
+        height="118"
         class="h-8 w-auto"
       />
     </a>
 
     <!-- Desktop Navigation -->
     <div class="hidden md:flex items-center gap-6">
-      <button
-        onclick={() => navigateToSection("hero")}
-        class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
+      <a
+        href={resolve("/#hero")}
+        onclick={(e) => navigateToSection(e, "hero")}
+        class="text-sm font-medium transition-colors hover:text-brand {isHomePage &&
         activeSection === 'hero'
           ? 'text-brand'
           : 'text-muted-foreground'}"
       >
         Home
-      </button>
-      <button
-        onclick={() => navigateToSection("about")}
-        class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
+      </a>
+      <a
+        href={resolve("/#about")}
+        onclick={(e) => navigateToSection(e, "about")}
+        class="text-sm font-medium transition-colors hover:text-brand {isHomePage &&
         activeSection === 'about'
           ? 'text-brand'
           : 'text-muted-foreground'}"
       >
         About
-      </button>
-      <button
-        onclick={() => navigateToSection("faq")}
-        class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
+      </a>
+      <a
+        href={resolve("/#faq")}
+        onclick={(e) => navigateToSection(e, "faq")}
+        class="text-sm font-medium transition-colors hover:text-brand {isHomePage &&
         activeSection === 'faq'
           ? 'text-brand'
           : 'text-muted-foreground'}"
       >
         FAQ
-      </button>
-      <button
-        onclick={() => navigateToSection("download")}
-        class="text-sm font-medium transition-colors hover:text-brand cursor-pointer {isHomePage &&
+      </a>
+      <a
+        href={resolve("/#download")}
+        onclick={(e) => navigateToSection(e, "download")}
+        class="text-sm font-medium transition-colors hover:text-brand {isHomePage &&
         activeSection === 'download'
           ? 'text-brand'
           : 'text-muted-foreground'}"
       >
         Download
-      </button>
+      </a>
       <a
         href={resolve("/wiki")}
         class="text-sm font-medium transition-colors hover:text-brand {$page.url.pathname.includes(
@@ -180,30 +184,34 @@
       class="md:hidden fixed top-14 right-0 z-40 w-64 h-[calc(100vh-3.5rem)] bg-background border-l border-border shadow-xl"
     >
       <nav class="p-4 flex flex-col gap-2">
-        <button
-          onclick={() => navigateToSection("hero")}
-          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
+        <a
+          href={resolve("/#hero")}
+          onclick={(e) => navigateToSection(e, "hero")}
+          class="text-lg font-medium py-3 px-4 block hover:bg-secondary rounded-md transition-colors"
         >
           Home
-        </button>
-        <button
-          onclick={() => navigateToSection("about")}
-          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
+        </a>
+        <a
+          href={resolve("/#about")}
+          onclick={(e) => navigateToSection(e, "about")}
+          class="text-lg font-medium py-3 px-4 block hover:bg-secondary rounded-md transition-colors"
         >
           About
-        </button>
-        <button
-          onclick={() => navigateToSection("faq")}
-          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
+        </a>
+        <a
+          href={resolve("/#faq")}
+          onclick={(e) => navigateToSection(e, "faq")}
+          class="text-lg font-medium py-3 px-4 block hover:bg-secondary rounded-md transition-colors"
         >
           FAQ
-        </button>
-        <button
-          onclick={() => navigateToSection("download")}
-          class="text-lg font-medium py-3 px-4 text-left hover:bg-secondary rounded-md transition-colors cursor-pointer"
+        </a>
+        <a
+          href={resolve("/#download")}
+          onclick={(e) => navigateToSection(e, "download")}
+          class="text-lg font-medium py-3 px-4 block hover:bg-secondary rounded-md transition-colors"
         >
           Download
-        </button>
+        </a>
         <a
           href={resolve("/wiki")}
           class="text-lg font-medium py-3 px-4 hover:bg-secondary rounded-md transition-colors"

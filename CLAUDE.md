@@ -33,6 +33,10 @@
 - when adding new blogs, always call /seo-optimization when we are done, and validate that the newly generated content is optimized
 - `../tcg-lightning-xmage-bridge/` you have the bridge, you can check there for recent commits
 
+## Deployment
+
+- after deploying, run `make indexnow` to notify search engines of changed URLs
+
 ## SEO
 
 - `~/.claude/skills/seo-optimization/SKILL.md` when we discover new seo optimizations, we add them there

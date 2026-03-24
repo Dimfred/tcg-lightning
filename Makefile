@@ -163,6 +163,29 @@ release-aur: ## update AUR package with correct version and hash
 	git push
 
 ################################################################################
+# SEO
+INDEXNOW_KEY := c2397d9d-ecfd-4ffa-8a1d-4938633d6f0c
+INDEXNOW_HOST := tcg-lightning.com
+
+indexnow: ## notify search engines of changed URLs via IndexNow
+	@URLS=$$(git diff HEAD~1 --name-only | grep -E 'src/routes|static/sitemap' | \
+		sed -n 's|src/routes/\(.*\)/+page\.svelte|/\1|p; s|src/routes/+page\.svelte|/|p' | \
+		sort -u); \
+	if git diff HEAD~1 --name-only | grep -q 'static/sitemap.xml'; then \
+		URLS=$$(grep '<loc>' static/sitemap.xml | sed 's|.*<loc>https://$(INDEXNOW_HOST)||; s|</loc>||'); \
+	fi; \
+	if [ -z "$$URLS" ]; then \
+		echo "No changed URLs to submit"; \
+		exit 0; \
+	fi; \
+	URL_JSON=$$(echo "$$URLS" | awk '{printf "\"https://$(INDEXNOW_HOST)%s\",", $$0}' | sed 's/,$$//'); \
+	echo "Submitting to IndexNow: $$URLS"; \
+	curl -s -X POST "https://api.indexnow.org/indexnow" \
+		-H "Content-Type: application/json" \
+		-d "{\"host\":\"$(INDEXNOW_HOST)\",\"key\":\"$(INDEXNOW_KEY)\",\"keyLocation\":\"https://$(INDEXNOW_HOST)/$(INDEXNOW_KEY).txt\",\"urlList\":[$$URL_JSON]}" \
+		&& echo "" && echo "IndexNow submitted"
+
+################################################################################
 # HELP
 help: ## print this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \

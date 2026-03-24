@@ -21,7 +21,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   // Security headers
   response.headers.set(
     "Strict-Transport-Security",
-    "max-age=31536000; includeSubDomains",
+    "max-age=31536000; includeSubDomains; preload",
   );
   response.headers.set("X-Frame-Options", "SAMEORIGIN");
   response.headers.set("X-Content-Type-Options", "nosniff");
@@ -32,7 +32,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   );
   response.headers.set(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline' plausible.tcg-lightning.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' plausible.tcg-lightning.com; font-src 'self';",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' plausible.tcg-lightning.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' plausible.tcg-lightning.com; font-src 'self'; frame-ancestors 'self';",
   );
 
   return response;

@@ -1,9 +1,7 @@
 <script lang="ts">
   import "../app.css";
   import "@fontsource/inter/400.css";
-  import "@fontsource/inter/500.css";
   import "@fontsource/inter/600.css";
-  import "@fontsource/inter/700.css";
   import Navigation from "$lib/components/Navigation.svelte";
   import { page } from "$app/stores";
   import { fade } from "svelte/transition";
