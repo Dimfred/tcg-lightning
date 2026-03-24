@@ -5,6 +5,8 @@
     content="Privacy policy for TCG Lightning. We respect your privacy and use only anonymous, cookieless analytics."
   />
   <link rel="canonical" href="https://tcg-lightning.com/privacy" />
+
+  {@html '<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tcg-lightning.com/"},{"@type":"ListItem","position":2,"name":"Privacy Policy","item":"https://tcg-lightning.com/privacy"}]}</script>'}
 </svelte:head>
 
 <div class="container mx-auto px-4 py-16 max-w-3xl">

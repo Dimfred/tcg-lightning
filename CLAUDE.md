@@ -27,6 +27,7 @@
 
 ## SEO
 
+- `~/.claude/skills/seo-optimization/SKILL.md` when we discover new seo optimizations, we add them there
 - when adding a new route, always add it to `static/sitemap.xml`
 - <https://www.seobility.net/en/seocheck/check/?url=https%3A%2F%2Ftcg-lightning.com%2F&mode=standard>
 - <https://www.screamingfrog.co.uk/seo-spider/>
