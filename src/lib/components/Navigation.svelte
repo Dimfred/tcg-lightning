@@ -76,6 +76,7 @@
         alt="TCG Lightning"
         width="956"
         height="236"
+        fetchpriority="high"
         class="h-8 w-auto"
       />
     </a>

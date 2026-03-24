@@ -129,6 +129,7 @@
       class="w-full"
       width={1500}
       height={900}
+      eager
     />
     <figcaption class="text-sm text-muted-foreground mt-2 text-center">
       Playing against myself — two TCG Lightning clients connected to the same

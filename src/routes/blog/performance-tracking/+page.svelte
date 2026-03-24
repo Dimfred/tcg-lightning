@@ -126,6 +126,7 @@
       class="w-full"
       width={1500}
       height={900}
+      eager
     />
     <figcaption class="text-sm text-muted-foreground mt-2 text-center">
       The statistics tab with performance tracking.

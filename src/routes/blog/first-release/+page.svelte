@@ -140,6 +140,7 @@
       class="w-full"
       width={1500}
       height={900}
+      eager
     />
     <figcaption class="text-sm text-muted-foreground mt-2 text-center">
       The TCG Lightning deck overview — manage all your decks at a glance.

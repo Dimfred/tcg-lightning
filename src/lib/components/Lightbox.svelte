@@ -7,12 +7,14 @@
     class: className = "",
     width,
     height,
+    eager = false,
   }: {
     src: string;
     alt: string;
     class?: string;
     width?: number;
     height?: number;
+    eager?: boolean;
   } = $props();
 
   let open = $state(false);
@@ -36,7 +38,8 @@
     {width}
     {height}
     class="w-full rounded-lg border border-border"
-    loading="lazy"
+    loading={eager ? "eager" : "lazy"}
+    fetchpriority={eager ? "high" : undefined}
   />
 </button>
 
@@ -66,6 +69,8 @@
     <img
       {src}
       {alt}
+      {width}
+      {height}
       class="relative z-10 max-w-[90vw] max-h-[90vh] object-contain"
     />
   </div>
