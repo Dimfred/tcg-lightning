@@ -25,6 +25,9 @@ format: ## format code
 	@bun run prettier --write "src/**/*.{svelte,ts,js}" --log-level silent
 	@echo -n "fomatted"
 
+trivy: ## run trivy
+	trivy fs --scanners vuln,secret,misconfig .
+
 ################################################################################
 # DOCKER
 PROJECT_NAME := tcg-lightning
@@ -59,11 +62,8 @@ docker-push: ## push docker image to registry
 	docker image push $(IMAGE_REGISTRY)/$(IMAGE_NAME):latest \
 		&& docker image push $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(RELEASE_DATE_TAG)
 
-docker-up: ## start with docker compose
-	docker compose up -d
-
-docker-down: ## stop docker compose
-	docker compose down
+docker-run: ## run the docker container
+	docker run --name tcg-lightning-website --rm tcg-lightning/website:latest
 
 ################################################################################
 # RELEASE
@@ -188,6 +188,14 @@ indexnow: ## notify search engines of changed URLs via IndexNow
 ################################################################################
 # HELP
 help: ## print this help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
-		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
-
+	@awk '/^##+$$/ { \
+		getline; \
+		if ($$0 ~ /^# /) { \
+			gsub(/^# /, ""); \
+			printf "\n\033[1;34m%s\033[0m\n", $$0; \
+		} \
+	} \
+	/^[a-zA-Z0-9_-]+:.*?## / { \
+		split($$0, a, ":.*?## "); \
+		printf "  \033[32m%-28s\033[0m %s\n", a[1], a[2]; \
+	}' $(MAKEFILE_LIST)

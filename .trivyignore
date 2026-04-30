@@ -1,0 +1,2 @@
+# Health checks are enforced in docker-compose/deployment, not in this image.
+DS-0026
