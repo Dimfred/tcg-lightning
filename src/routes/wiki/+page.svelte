@@ -216,7 +216,10 @@
               In TCG Lightning: Settings → LLM Providers → Add to OpenRouter
             </li>
             <li>
-              Paste your API key and use model: <code>z.ai/glm-4.5-air</code>
+              Paste your API key and use one of these free models:
+              <code>Google: Gemma 4 31B (free)</code>,
+              <code>OpenAI: gpt-oss-120b (free)</code>,
+              <code>Z.ai: GLM 4.5 Air (free)</code>
             </li>
           </ol>
 
