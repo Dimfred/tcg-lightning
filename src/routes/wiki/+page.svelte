@@ -189,8 +189,31 @@
           </h3>
 
           <h4 class="text-lg font-medium mt-4 mb-2">
-            OpenRouter (Recommended)
+            DeepSeek (My Recommendation)
           </h4>
+          <p class="text-muted-foreground leading-relaxed">
+            My preferred model is <code>DeepSeek V4 Flash</code>. It is
+            extremely capable and very cheap.
+          </p>
+          <ol
+            class="text-muted-foreground leading-relaxed list-decimal list-inside space-y-1 mt-2"
+          >
+            <li>
+              Go to <a
+                href="https://platform.deepseek.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-brand hover:underline">platform.deepseek.com</a
+              >
+            </li>
+            <li>Create an account and generate an API key</li>
+            <li>
+              In TCG Lightning: Settings → LLM Providers → Add to DeepSeek
+            </li>
+            <li>Paste your API key and use model: <code>DeepSeek V4 Flash</code></li>
+          </ol>
+
+          <h4 class="text-lg font-medium mt-8 mb-2">OpenRouter</h4>
           <p class="text-muted-foreground leading-relaxed">
             <a
               href="https://openrouter.ai/"

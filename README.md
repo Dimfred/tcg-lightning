@@ -15,7 +15,7 @@ TCG Lightning is a powerful deck building tool designed for Magic: The Gathering
 - **Lightning-Fast Search**: Quickly find any card from Magic's extensive library
 - **Modern Interface**: Clean, responsive design that works seamlessly across devices
 - **Intuitive Deck Building**: Build and organize your decks with ease
-- **Custom Proxy Creation**: Create your own proxies with custom artwork directly in the app - perfect for playtesting or personalizing your decks
+- **Custom Proxy Creation**: Create proxies with directly in the app
 
 ## Installation
 
