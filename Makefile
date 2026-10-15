@@ -25,8 +25,14 @@ format: ## format code
 	@bun run prettier --write "src/**/*.{svelte,ts,js}" --log-level silent
 	@echo -n "fomatted"
 
-trivy: ## run trivy
-	trivy fs --scanners vuln,secret,misconfig .
+trivy-fs: ## scan repo with trivy (HIGH, CRITICAL)
+	trivy fs --scanners vuln,secret,misconfig --severity HIGH,CRITICAL --skip-dirs node_modules --skip-dirs build --skip-dirs releases .
+
+trivy-license: ## list all dependency licenses with trivy (needs node_modules)
+	trivy fs --scanners license --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --skip-dirs build --skip-dirs releases .
+
+trivy-img: ## scan docker image with trivy (HIGH, CRITICAL), other tag with TAG=...
+	trivy image --scanners vuln,secret,misconfig --severity HIGH,CRITICAL $(IMAGE_NAME):$${TAG:-latest}
 
 ################################################################################
 # DOCKER

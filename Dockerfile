@@ -1,6 +1,6 @@
 ######################################################################
 # BUILD
-FROM oven/bun:canary@sha256:a2ad318b71d2c7661bd6a2f540470d4829ce4dd5b90e19525bb73ccfdbe97fa0 AS builder
+FROM oven/bun:1.4.3@sha256:ec06c3b6cea04192ae6770c434f668ca41d343ad19fa6472216c7b48be39c598 AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ RUN NODE_ENV=production bun run build
 
 ######################################################################
 # RUN
-FROM oven/bun:canary-distroless@sha256:3cef5a689f2e13e3bebd39302c71dc91dc54b80c5b67460fc22cf3b593149997
+FROM oven/bun:1.4.3-distroless@sha256:1aaa515018b0b37d95dbdebd55d1b7f37ad258a6289ba63e4bc3b9c9e3038697
 
 COPY --chown=1000:1000 --from=builder /app/build /app/build
 COPY --chown=1000:1000 --from=builder /app/package.json /app/package.json
