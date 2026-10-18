@@ -18,12 +18,16 @@ COPY tsconfig.json ./
 # Build the app
 RUN NODE_ENV=production bun run build
 
+# Runtime dependencies (externalized by adapter-node)
+RUN mkdir /prod && cp package.json bun.lock /prod/ && cd /prod && bun install --frozen-lockfile --production
+
 ######################################################################
 # RUN
 FROM oven/bun:1.4.3-distroless@sha256:1aaa515018b0b37d95dbdebd55d1b7f37ad258a6289ba63e4bc3b9c9e3038697
 
 COPY --chown=1000:1000 --from=builder /app/build /app/build
 COPY --chown=1000:1000 --from=builder /app/package.json /app/package.json
+COPY --chown=1000:1000 --from=builder /prod/node_modules /app/node_modules
 WORKDIR /app
 ENV NODE_ENV=production
 USER 1000:1000
