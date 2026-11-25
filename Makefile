@@ -73,7 +73,7 @@ docker-run: ## run the docker container
 
 ################################################################################
 # RELEASE
-release: ## publish latest release from releases/ folder
+release-production: ## publish latest production release from releases/ folder
 	@echo "Finding latest release..."
 	@VERSION=$$(ls -1 releases/ | grep -v '\-rc' | sed -n 's/.*tcg-lightning_\([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' | sort -V | uniq | tail -n1); \
 	if [ -z "$$VERSION" ]; then \
@@ -105,22 +105,17 @@ release: ## publish latest release from releases/ folder
 	fi
 	$(MAKE) release-aur
 
-release-dev: ## publish dev release as RC (no --latest flag)
-	@echo "Finding latest RC release..."
-	@RC_TAG=$$(ls -1 releases/ | sed -n 's/.*tcg-lightning_\([0-9]*\.[0-9]*\.[0-9]*-rc[0-9]*\).*/\1/p' | sort -V | uniq | tail -n1); \
-	if [ -z "$$RC_TAG" ]; then \
-		echo "Error: No RC releases found in releases/ folder"; \
-		exit 1; \
-	fi; \
-	echo ""; \
-	echo "Files to publish:"; \
-	ls -lh releases/ | grep "$$RC_TAG"; \
-	echo ""; \
-	echo "Publishing dev release v$$RC_TAG..."; \
-	gh release create "v$$RC_TAG" releases/*tcg-lightning_$${RC_TAG}* \
-		--title "v$$RC_TAG" \
-		--notes "" \
-		--prerelease
+release-staging: ## publish staging release TAG=vX.Y.Z-rc.N as prerelease (staging files from releases/, notes/X.Y.Z-rc.N.md if present)
+	@set -euo pipefail
+	if [ -z "$(TAG)" ]; then echo "TAG is required (vX.Y.Z-rc.N)"; exit 1; fi
+	version="$(TAG:v%=%)"
+	shopt -s nullglob
+	files=(releases/*tcg-lightning-staging_$${version}_*)
+	if [ $${#files[@]} -eq 0 ]; then echo "No staging files for $$version in releases/"; exit 1; fi
+	notes=(--notes "")
+	if [ -f "notes/$$version.md" ]; then notes=(--notes-file "notes/$$version.md"); fi
+	ls -lh "$${files[@]}"
+	gh release create "$(TAG)" "$${files[@]}" --title "$(TAG)" "$${notes[@]}" --prerelease
 
 ################################################################################
 # AUR
